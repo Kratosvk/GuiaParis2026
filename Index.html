@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Guía de Viaje: París 2026</title>
+  <style>
+    :root {
+      --primary: #1a365d;
+      --secondary: #2b6cb0;
+      --accent: #d69e2e;
+      --bg: #f7fafc;
+      --card-bg: #ffffff;
+      --text: #2d3748;
+      --border: #e2e8f0;
+      --badge-star: #9b2c2c;
+      --badge-star-bg: #fff5f5;
+      --badge-sub: #2c5282;
+      --badge-sub-bg: #ebf8ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px 0;
+      font-size: 1.8rem;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    /* Tab Layout iOS compatible con enlaces nativos */
+    .tabs {
+      display: flex;
+      background-color: #edf2f7;
+      border-bottom: 2px solid var(--border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 14px 16px;
+      border: none;
+      background: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #4a5568;
+      cursor: pointer;
+      white-space: nowrap;
+      text-align: center;
+      outline: none;
+      text-decoration: none;
+      display: block;
+      -webkit-touch-callout: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .tab-btn:hover {
+      background-color: #e2e8f0;
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      color: var(--secondary);
+      background-color: var(--card-bg);
+      border-bottom: 3px solid var(--secondary);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 24px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Cards & Items */
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      padding: 18px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .time-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-star {
+      color: var(--badge-star);
+      background-color: var(--badge-star-bg);
+      border: 1px solid #feb2b2;
+    }
+
+    .badge-sub {
+      color: var(--badge-sub);
+      background-color: var(--badge-sub-bg);
+      border: 1px solid #bee3f8;
+    }
+
+    /* Transport Box */
+    .transport-box {
+      background-color: #f7fafc;
+      border-left: 4px solid var(--secondary);
+      padding: 10px 14px;
+      margin: 10px 0 14px 0;
+      font-size: 0.9rem;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .transport-box strong {
+      color: var(--secondary);
+    }
+
+    .duration {
+      display: inline-block;
+      margin-top: 4px;
+      font-weight: 600;
+      color: #718096;
+    }
+
+    .details p {
+      margin: 0 0 8px 0;
+      font-size: 0.95rem;
+    }
+
+    .details ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 0.9rem;
+    }
+
+    /* Interactive Links for Spots */
+    .spot-link {
+      color: var(--secondary);
+      font-weight: 700;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: inline-block;
+      padding: 1px 2px;
+    }
+
+    .spot-link:hover {
+      color: var(--primary);
+      background-color: #ebf8ff;
+      border-radius: 3px;
+    }
+
+    .map-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .map-link:hover {
+      text-decoration: underline;
+    }
+
+    .banner {
+      background-color: #feebc8;
+      border: 1px solid #fbd38d;
+      color: #744210;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    /* Modal Component */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #a0aec0;
+      cursor: pointer;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .close-btn:hover {
+      color: var(--primary);
+      background: #edf2f7;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .modal-body {
+      padding: 20px 24px;
+    }
+
+    .modal-body h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.4rem;
+    }
+
+    .modal-body p {
+      font-size: 0.95rem;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 8px; }
+      .tab-btn { font-size: 0.85rem; padding: 10px 12px; }
+      .card-header { flex-direction: column; align-items: flex-start; }
+      .modal-img { height: 180px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🇫🇷 Guía de Viaje: París 2026</h1>
+    <p>Haz clic en los nombres en azul para ver la foto y detalles del lugar</p>
+  </header>
+
+  <nav class="tabs">
+    <a href="javascript:void(0)" class="tab-btn active" data-tab="viernes">Viernes 16 Oct</a>
+    <a href="javascript:void(0)" class="tab-btn" data-tab="sabado">Sábado 17 Oct</a>
+    <a href="javascript:void(0)" class="tab-btn" data-tab="domingo">Domingo 18 Oct</a>
+    <a href="javascript:void(0)" class="tab-btn" data-tab="lunes">Lunes 19 Oct</a>
+  </nav>
+
+  <!-- VIERNES 16 OCTUBRE -->
+  <div id="viernes" class="tab-content active">
+    <h2>🛬 Viernes 16 Octubre: Llegada a París</h2>
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">Llegada y Traslado al Hotel</span>
+      </div>
+      
+      <div class="transport-box">
+        <strong>🚆 Traslado en Transporte Público:</strong><br>
+        1. <strong>Metro L14:</strong> Desde <em>Aéroport d'Orly</em> hasta <em>Maison Blanche</em>.<br>
+        2. <strong>Metro L7:</strong> Cambio hacia <em>Villejuif-Louis Aragon</em> hasta <em>Porte d'Italie</em>.<br>
+        3. <strong>Tranvía T3a:</strong> Dirección <em>Pont de Garigliano</em> hasta <em>Desnouettes</em> o <em>Pont de Garigliano</em>.<br>
+        <span class="duration">⏱️ Duración total: ~45 - 55 min (incluye 7 min a pie)</span>
+      </div>
+
+      <div class="transport-box" style="border-left-color: #a0aec0;">
+        <strong>🚕 Opción Alternativa (Taxi/Uber):</strong><br>
+        Trayecto directo desde Orly T1 al hotel.<br>
+        <span class="duration">⏱️ Duración: ~25 - 30 min</span>
+      </div>
+
+      <div class="details">
+        <p><strong>Alojamiento:</strong> ibis Paris Issy les Moulineaux Val de Seine</p>
+        <a href="https://maps.google.com/?q=ibis+Paris+Issy+les+Moulineaux+Val+de+Seine" target="_blank" class="map-link">📍 Abrir Hotel en Google Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SÁBADO 17 OCTUBRE -->
+  <div id="sabado" class="tab-content">
+    <h2>🏛️ Sábado 17 Octubre: El Gran Eje Monumental</h2>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">1. Del Hotel al Arco del Triunfo (09:00 - 09:35 h)</span>
+        <span class="badge badge-star">⭐ Imprescindible</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚇 Metro:</strong> L12 desde <em>Mairie d'Issy</em> hasta <em>Pasteur</em> (15 min) ➔ Transbordo a L6 hacia <em>Charles de Gaulle - Étoile</em> (12 min).<br>
+        <span class="duration">⏱️ Duración total: ~30 - 35 min</span>
+      </div>
+      <div class="details">
+        <p><span class="spot-link" data-spot="arco">Arco del Triunfo</span> &amp; <span class="spot-link" data-spot="elysees">Campos Elíseos</span>: Fotos del imponente monumento e inicio del paseo por la famosa avenida.</p>
+        <a href="https://maps.google.com/?q=Arc+de+Triomphe+Paris" target="_blank" class="map-link">📍 Ver Arco del Triunfo en Google Maps</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">2. Al Trocadéro y Torre Eiffel (10:30 - 10:40 h)</span>
+        <span class="badge badge-star">⭐ Imprescindible</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚇 Metro Directo:</strong> L6 desde <em>Charles de Gaulle - Étoile</em> hasta <em>Trocadéro</em> (3 paradas).<br>
+        <span class="duration">⏱️ Duración: ~5 - 7 min</span>
+      </div>
+      <div class="details">
+        <p><span class="spot-link" data-spot="trocadero">Trocadéro</span> &amp; <span class="spot-link" data-spot="eiffel">Torre Eiffel</span>: Mirador panorámico, bajada por las fuentes y paseo por el Campo de Marte.</p>
+        <a href="https://maps.google.com/?q=Plaza+del+Trocadero+Paris" target="_blank" class="map-link">📍 Ver Trocadéro</a> | 
+        <a href="https://maps.google.com/?q=Torre+Eiffel+Paris" target="_blank" class="map-link">📍 Ver Torre Eiffel</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">3. Paseo en Barco por el Sena (14:15 - 14:30 h)</span>
+        <span class="badge badge-star">⭐ Imprescindible</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚶 Caminando:</strong> Bajada a pie desde la Torre Eiffel hacia el río Sena (Port de la Bourdonnais).<br>
+        <span class="duration">⏱️ Duración paseo: ~10 - 12 min</span>
+      </div>
+      <div class="details">
+        <p><span class="spot-link" data-spot="bateaux">Bateaux Parisiens (14:30 h)</span>: Recorrido panorámico en barco para ver desde el agua el Museo d'Orsay, Grand Palais, Petit Palais y la Asamblea Nacional.</p>
+        <a href="https://maps.google.com/?q=Bateaux+Parisiens+Port+de+la+Bourdonnais+Paris" target="_blank" class="map-link">📍 Ver Embarcadero</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">4. Concordia, Tullerías y Louvre (16:00 - 16:25 h)</span>
+        <span class="badge badge-sub">🔹 Secundario / ⭐ Imprescindible</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚶 Caminando:</strong> Paseo agradable bordeando el río Sena y cruzando los jardines.<br>
+        <span class="duration">⏱️ Duración paseo: ~20 - 25 min</span>
+      </div>
+      <div class="details">
+        <ul>
+          <li><span class="spot-link" data-spot="concorde">Plaza de la Concordia</span> &amp; <span class="spot-link" data-spot="tuileries">Jardines de las Tullerías</span> (Secundario): Obelisco egipcio y zona verde de descanso.</li>
+          <li><span class="spot-link" data-spot="louvre">Pirámide del Louvre</span> &amp; Patio del Palacio (Imprescindible): Fotos exteriores al atardecer.</li>
+        </ul>
+        <a href="https://maps.google.com/?q=Pyramide+du+Louvre+Paris" target="_blank" class="map-link">📍 Ver Pirámide del Louvre</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">5. Vuelta al Hotel (18:30 h)</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚇 Metro Directo:</strong> L12 desde <em>Concorde</em> hasta <em>Mairie d'Issy</em>.<br>
+        <span class="duration">⏱️ Duración: ~25 min (+ 6 min a pie al hotel)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMINGO 18 OCTUBRE -->
+  <div id="domingo" class="tab-content">
+    <h2>🌹 Domingo 18 Octubre: Centro Histórico, Luxemburgo y Compras</h2>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">1. Del Hotel a Île de la Cité (09:00 - 09:30 h)</span>
+        <span class="badge badge-star">⭐ Imprescindible</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚇 Metro:</strong> L12 desde <em>Mairie d'Issy</em> a <em>Sèvres - Babylone</em> ➔ Transbordo a L10 hacia <em>Cluny - La Sorbonne</em>.<br>
+        <span class="duration">⏱️ Duración: ~25 - 30 min</span>
+      </div>
+      <div class="details">
+        <p><strong>Île de la Cité:</strong> Exterior de <span class="spot-link" data-spot="notredame">Notre Dame</span>, <span class="spot-link" data-spot="flores">Mercado de Flores</span> y fachadas de la <span class="spot-link" data-spot="chapelle">Sainte-Chapelle</span> y la Conciergerie.</p>
+        <a href="https://maps.google.com/?q=Catedral+de+Notre+Dame+Paris" target="_blank" class="map-link">📍 Ver Notre Dame</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">2. Panteón y Jardines de Luxemburgo (11:00 - 11:20 h)</span>
+        <span class="badge badge-sub">🔹 Secundario / ⭐ Imprescindible</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚶 Caminando:</strong> Subida a pie por el Barrio Latino (Rue Saint-Jacques).<br>
+        <span class="duration">⏱️ Duración: ~12 min al Panteón + 5 min a Luxemburgo</span>
+      </div>
+      <div class="details">
+        <ul>
+          <li><span class="spot-link" data-spot="pantheon">Barrio Latino &amp; Panteón</span> (Secundario): Vistas exteriores del imponente edificio.</li>
+          <li><span class="spot-link" data-spot="luxembourg">Jardines de Luxemburgo</span> (Imprescindible): Palacio, fuentes, barco de madera y zona infantil.</li>
+        </ul>
+        <a href="https://maps.google.com/?q=Jardin+du+Luxembourg+Paris" target="_blank" class="map-link">📍 Ver Jardines de Luxemburgo</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">3. A Galeries Lafayette &amp; Ópera (15:00 - 15:25 h)</span>
+        <span class="badge badge-star">⭐ Imprescindible</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚇 Metro:</strong> L4 desde <em>Odéon</em> a <em>Châtelet</em> ➔ Transbordo a L7 hacia <em>Chaussée d'Antin - La Fayette</em>.<br>
+        <span class="duration">⏱️ Duración: ~20 - 25 min</span>
+      </div>
+      <div class="details">
+        <ul>
+          <li><span class="spot-link" data-spot="opera">Ópera Garnier</span> (Secundario): Admira la fachada neobarroca por fuera.</li>
+          <li><span class="spot-link" data-spot="lafayette">Galeries Lafayette Haussmann</span> (Imprescindible): Cúpula de cristal y vistas espectaculares gratuitas desde la terraza superior (Rooftop).</li>
+        </ul>
+        <a href="https://maps.google.com/?q=Galeries+Lafayette+Haussmann" target="_blank" class="map-link">📍 Ver Galeries Lafayette</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">4. Vuelta al Hotel (18:00 h)</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚇 Metro Directo:</strong> L12 desde <em>Trinité - d'Estienne d'Orves</em> hasta <em>Mairie d'Issy</em>.<br>
+        <span class="duration">⏱️ Duración: ~25 - 28 min</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LUNES 19 OCTUBRE -->
+  <div id="lunes" class="tab-content">
+    <h2>🎨 Lunes 19 Octubre: Montmartre y Traslado a Disney</h2>
+
+    <div class="banner">
+      <strong>🧳 Gestión de Equipaje:</strong> Dejad las maletas en la consigna de la recepción del hotel de Issy a las 08:45 h antes de salir hacia Montmartre.
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">1. Del Hotel a Montmartre (09:00 - 09:35 h)</span>
+        <span class="badge badge-star">⭐ Imprescindible</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚇 Metro Directo:</strong> L12 desde <em>Mairie d'Issy</em> hasta <em>Abbesses</em>.<br>
+        <span class="duration">⏱️ Duración: ~32 - 35 min</span>
+      </div>
+      <div class="details">
+        <p><strong>Montmartre &amp; Sacré-Cœur:</strong></p>
+        <ul>
+          <li>Subida en el <span class="spot-link" data-spot="funicular">Funicular de Montmartre</span> (~1,5 min de trayecto).</li>
+          <li>Basílica del <span class="spot-link" data-spot="sacrecoeur">Sacré-Cœur</span> y vista panorámica.</li>
+          <li>Paseo por la <span class="spot-link" data-spot="tertre">Place du Tertre</span> (Plaza de los Pintores).</li>
+          <li>Bajada a pie hacia el <span class="spot-link" data-spot="moulin">Moulin Rouge</span> (Secundario / Foto exterior).</li>
+        </ul>
+        <a href="https://maps.google.com/?q=Basílica+del+Sagrado+Corazón+Paris" target="_blank" class="map-link">📍 Ver Sacré-Cœur</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="time-title">2. Vuelta al Hotel a por Maletas (11:30 - 12:00 h)</span>
+      </div>
+      <div class="transport-box">
+        <strong>🚇 Metro Directo:</strong> L12 desde <em>Blanche</em> o <em>Pigalle</em> hasta <em>Mairie d'Issy</em>.<br>
+        <span class="duration">⏱️ Duración: ~30 min</span>
+      </div>
+      <div class="details">
+        <p>Recoger las maletas custodiadas en la recepción del hotel.</p>
+      </div>
+    </div>
+
+    <div class="card" style="border-color: var(--accent);">
+      <div class="card-header">
+        <span class="time-title">3. Traslado a Disneyland Paris (12:15 - 13:40 h)</span>
+      </div>
+      <div class="transport-box" style="border-left-color: var(--accent);">
+        <strong>🚆 Ruta Combinada con Maletas:</strong><br>
+        1. <strong>Metro L12:</strong> <em>Mairie d'Issy</em> a <em>Concorde</em> (22 min).<br>
+        2. <strong>Metro L1:</strong> <em>Concorde</em> a <em>Nation</em> o <em>Gare de Lyon</em> (15 min).<br>
+        3. <strong>Tren RER A:</strong> Hasta <em>Marne-la-Vallée - Chessy</em> (40 min).<br>
+        <span class="duration">⏱️ Duración total: ~1h 15 min - 1h 25 min</span>
+      </div>
+      <div class="details">
+        <p><strong>Llegada a Disney (13:40 h):</strong> Coger autobús lanzadera gratuito (5 min) en la estación hasta el hotel <strong>Disney Newport Bay Club</strong> para el check-in e ir a comer al <strong>Agrabah Café (14:30 h)</strong>.</p>
+        <a href="https://maps.google.com/?q=Disney+Newport+Bay+Club" target="_blank" class="map-link">📍 Ver Hotel Disney</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL COMPONENT -->
+<div id="spotModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModalBtn">&times;</span>
+    <img id="modalImg" class="modal-img" src="" alt="Foto monumento">
+    <div class="modal-body">
+      <h3 id="modalTitle">Título del Monumento</h3>
+      <p id="modalDesc">Descripción detallada del monumento.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Spot Data Store completo
+  const spotsData = {
+    arco: {
+      title: "Arco del Triunfo",
+      img: "https://images.unsplash.com/photo-1509439581779-6298f75bf6e5?auto=format&fit=crop&w=800&q=80",
+      desc: "Construido por orden de Napoleón Bonaparte tras su victoria en Austerlitz, este majestuoso monumento rinde homenaje a los caídos en la Revolución y las Guerras Napoleónicas. Situado en el centro de la Plaza Charles de Gaulle, conecta 12 avenidas en forma de estrella."
+    },
+    elysees: {
+      title: "Campos Elíseos",
+      img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+      desc: "Considerada 'la avenida más hermosa del mundo', se extiende casi dos kilómetros desde el Arco del Triunfo hasta la Plaza de la Concordia. Destaca por sus bulevares arbolados, tiendas exclusivas, cines y cafeterías icónicas."
+    },
+    trocadero: {
+      title: "Plaza del Trocadéro",
+      img: "https://images.unsplash.com/photo-1543349689-9a4d426bee8e?auto=format&fit=crop&w=800&q=80",
+      desc: "Ubicada frente a la Torre Eiffel al otro lado del río Sena, la esplanada del Trocadéro ofrece la perspectiva panorámica perfecta y más codiciada para tomar fotografías familiares imborrables."
+    },
+    eiffel: {
+      title: "Torre Eiffel",
+      img: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=800&q=80",
+      desc: "Símbolo universal de París, fue construida por Gustave Eiffel para la Exposición Universal de 1889. Con sus 330 metros de altura, domina el horizonte de la ciudad y el parque del Campo de Marte a sus pies."
+    },
+    bateaux: {
+      title: "Paseo en Barco (Bateaux Parisiens)",
+      img: "https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&fit=crop&w=800&q=80",
+      desc: "Un relajante recorrido panorámico por el río Sena. Permite contemplar de forma muy cómoda monumentos principales como la Asamblea Nacional, el Museo d'Orsay, la Conciergerie y los puentes históricos desde el agua."
+    },
+    concorde: {
+      title: "Plaza de la Concordia",
+      img: "https://images.unsplash.com/photo-1584003564911-a7a321c84e1c?auto=format&fit=crop&w=800&q=80",
+      desc: "La segunda plaza más grande de Francia, famosa por haber albergado la guillotina durante la Revolución Francesa. En su centro destaca el Obelisco de Luxor, un monolito egipcio de más de 3.000 años de antigüedad con jeroglíficos dorados."
+    },
+    tuileries: {
+      title: "Jardines de las Tullerías",
+      img: "https://images.unsplash.com/photo-1590253230532-a5814f10738e?auto=format&fit=crop&w=800&q=80",
+      desc: "El jardín público más antiguo y grande de París, creado en el siglo XVI. Conecta la Plaza de la Concordia con el Louvre y ofrece amplios paseos, fuentes con estanque y áreas perfectas para que los niños descansen."
+    },
+    louvre: {
+      title: "Pirámide del Louvre",
+      img: "https://images.unsplash.com/photo-1565099824688-e93eb20fe622?auto=format&fit=crop&w=800&q=80",
+      desc: "Diseñada por el arquitecto I.M. Pei e inaugurada en 1989, esta pirámide de cristal y metal sirve como entrada principal al Museo del Louvre, creando un llamativo contraste futurista con el antiguo palacio renacentista."
+    },
+    notredame: {
+      title: "Catedral de Notre Dame",
+      img: "https://images.unsplash.com/photo-1478359844494-1092259d93e4?auto=format&fit=crop&w=800&q=80",
+      desc: "Joya de la arquitectura gótica en la Île de la Cité. Famosa por sus torres, gárgolas y rosetones de cristal, así como por la historia del jorobado ideada por Víctor Hugo. Su fachada exterior impresiona por su detalle histórico."
+    },
+    flores: {
+      title: "Mercado de Flores (Marché aux Fleurs)",
+      img: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80",
+      desc: "Ubicado junto a Notre Dame desde 1808, este entrañable mercado cubierto de hierro forjado alberga puestos llenos de flores coloridas, plantas y adornos de jardín en un entorno vintage encantador."
+    },
+    chapelle: {
+      title: "Sainte-Chapelle",
+      img: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=800&q=80",
+      desc: "Obra maestra del arte gótico radiante construida en el siglo XIII por el rey Luis IX para albergar la Corona de Espinas. Desde el exterior destaca por sus agujas y su majestuosa estructura."
+    },
+    pantheon: {
+      title: "Panteón de París",
+      img: "https://images.unsplash.com/photo-1588691891500-11756a599607?auto=format&fit=crop&w=800&q=80",
+      desc: "Ubicado en la cima del Barrio Latino, este imponente edificio neoclásico con cúpula alberga las tumbas de grandes personalidades de la historia francesa como Marie Curie, Víctor Hugo, Voltaire y Rousseau."
+    },
+    luxembourg: {
+      title: "Jardines de Luxemburgo",
+      img: "https://images.unsplash.com/photo-1581881067989-7e3eaf45f390?auto=format&fit=crop&w=800&q=80",
+      desc: "El parque favorito de las familias parisinas. Construido para María de Médici, alberga un estanque central donde los niños alquilan barquitos de madera con velas de colores, parques infantiles y teatros de marionetas."
+    },
+    opera: {
+      title: "Ópera Garnier",
+      img: "https://images.unsplash.com/photo-1549693578-d683be217e58?auto=format&fit=crop&w=800&q=80",
+      desc: "Espectacular teatro neobarroco inaugurado en 1875, conocido mundialmente por inspirar la obra 'El Fantasma de la Ópera'. Su fachada exterior está adornada con esculturas de oro, columnas ornamentadas y frisos de mármol."
+    },
+    lafayette: {
+      title: "Galeries Lafayette Haussmann",
+      img: "https://images.unsplash.com/photo-1584003564911-a7a321c84e1c?auto=format&fit=crop&w=800&q=80",
+      desc: "Grandes almacenes icónicos célebres por su cúpula de cristal art nouveau de 1912. En su última planta cuentan con una gran terraza Rooftop de acceso totalmente gratuito con una vista panorámica espectacular sobre toda París."
+    },
+    sacrecoeur: {
+      title: "Basílica del Sacré-Cœur",
+      img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=800&q=80",
+      desc: "Ubicada en la cima de la colina de Montmartre, esta basílica de piedra travertina blanca domina la ciudad. Sus escalinatas ofrecen una de las panorámicas más abiertas de París."
+    },
+    funicular: {
+      title: "Funicular de Montmartre",
+      img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+      desc: "Un breve trayecto inclinado por cable que ahorra subir los 222 escalones de la colina hasta el Sagrado Corazón, convirtiéndose en un trayecto divertido y muy cómodo para viajar con niños."
+    },
+    tertre: {
+      title: "Place du Tertre (Plaza de los Pintores)",
+      img: "https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?auto=format&fit=crop&w=800&q=80",
+      desc: "Corazón bohemio del barrio de Montmartre. Decenas de pintores y retratistas colocan sus caballetes al aire libre a diario, recordando la época en que Picasso, Van Gogh y Monet frecuentaban estas calles."
+    },
+    moulin: {
+      title: "Moulin Rouge",
+      img: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80",
+      desc: "El cabaret más famoso del mundo, fundado en 1889 en el distrito de Pigalle. Su característico molino de viento rojo en el techo es una parada clásica para hacerse una foto en el bulevar."
+    }
+  };
+
+  // Cambio de pestañas con escucha táctil directa para iOS
+  function selectTab(tabId) {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabContents.forEach(content => content.classList.remove('active'));
+    tabBtns.forEach(btn => btn.classList.remove('active'));
+
+    const targetContent = document.getElementById(tabId);
+    if (targetContent) {
+      targetContent.classList.add('active');
+    }
+
+    const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('active');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+
+    tabBtns.forEach(btn => {
+      const handler = function(e) {
+        e.preventDefault();
+        const tabId = this.getAttribute('data-tab');
+        selectTab(tabId);
+      };
+
+      btn.addEventListener('touchstart', handler, { passive: false });
+      btn.addEventListener('click', handler);
+    });
+
+    // Enlaces a los monumentos para abrir el modal
+    const spotLinks = document.querySelectorAll('.spot-link');
+    const modal = document.getElementById('spotModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalImg = document.getElementById('modalImg');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    spotLinks.forEach(link => {
+      const openModal = function(e) {
+        e.preventDefault();
+        const key = this.getAttribute('data-spot');
+        const data = spotsData[key];
+        if (data) {
+          modalTitle.innerText = data.title;
+          modalDesc.innerText = data.desc;
+          modalImg.src = data.img;
+          modal.style.display = 'flex';
+        }
+      };
+
+      link.addEventListener('touchstart', openModal, { passive: false });
+      link.addEventListener('click', openModal);
+    });
+
+    closeModalBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
