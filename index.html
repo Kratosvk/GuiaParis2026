@@ -1,735 +1,1159 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Guía de Viaje: París 2026</title>
-  <style>
-    :root {
-      --primary: #1a365d;
-      --secondary: #2b6cb0;
-      --accent: #d69e2e;
-      --bg: #f7fafc;
-      --card-bg: #ffffff;
-      --text: #2d3748;
-      --border: #e2e8f0;
-      --badge-star: #9b2c2c;
-      --badge-star-bg: #fff5f5;
-      --badge-sub: #2c5282;
-      --badge-sub-bg: #ebf8ff;
-    }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<title>París · Disney · Barcelona</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Fredoka:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#FAF6EF;
+    --ink:#211E1B;
+    --muted:#82786C;
+    --card:#FFFFFF;
+    --line:#EAE2D4;
+    --paris:#1D3557;
+    --paris-soft:#EEF2F7;
+    --disney:#A31A63;
+    --disney-soft:#FCEBF3;
+    --gold:#E7B23D;
+    --gold-soft:#FBF1DC;
+    --flight:#C9711F;
+    --flight-soft:#FBF0E3;
+    --train:#6A4C93;
+    --train-soft:#F2EEF8;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-top: env(safe-area-inset-top, 0px);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{margin:0; padding:0; background:var(--bg); overscroll-behavior-y: none;}
+  body{
+    font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h3,h4{ font-family:"Baloo 2", -apple-system, sans-serif; }
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
+  /* ---------- Header ---------- */
+  .hero{
+    padding: calc(14px + var(--safe-top)) 20px 16px;
+    background: linear-gradient(160deg, #16294A 0%, #1D3557 55%, #2E4C7A 100%);
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; right:-40px; top:-40px;
+    width:160px; height:160px; border-radius:50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 70%);
+  }
+  .hero-eyebrow{ font-size:13px; opacity:0.75; letter-spacing:0.2px; margin:0 0 2px; font-family:inherit;}
+  .hero-title{ font-size:22px; font-weight:700; margin:0 0 10px; letter-spacing:-0.2px; }
+  .hero-meta{ display:flex; align-items:center; gap:10px; }
+  .hero-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.18);
+    padding:6px 12px; border-radius:100px;
+    font-size:13px; font-weight:600; font-family:-apple-system, sans-serif;
+  }
+  .hero-dot{ width:6px; height:6px; border-radius:50%; background:#7FD8A6; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      margin: 0;
-      padding: 20px;
-    }
+  /* ---------- Tab content ---------- */
+  .content{ padding: 18px 16px calc(96px + var(--safe-bottom)); animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
+  /* ---------- Collapsible Day Block ---------- */
+  .day-block {
+    margin-bottom: 16px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    background: var(--card);
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .day-number {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--paris);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: "Baloo 2", sans-serif;
+  }
+  .day-block.disney-day .day-number {
+    background: var(--disney);
+  }
+  .day-title-box {
+    display: flex;
+    flex-direction: column;
+  }
+  .day-title {
+    font-size: 15.5px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .day-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 2px 0 0 0;
+  }
+  .toggle-icon {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 0.25s ease;
+    margin-left: 8px;
+  }
+  .day-block.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+  }
+  .day-content {
+    padding: 14px 12px 2px 0;
+    display: block;
+  }
+  .day-block.collapsed .day-content {
+    display: none;
+  }
 
-    header {
-      background-color: var(--primary);
-      color: white;
-      padding: 24px;
-      text-align: center;
-    }
+  .timeline{ position:relative; padding-left:13px; border-left:2px solid var(--line); margin-left:24px; }
 
-    header h1 {
-      margin: 0 0 8px 0;
-      font-size: 1.8rem;
-    }
+  .card{
+    position:relative;
+    background:var(--card);
+    border-radius:16px;
+    padding:14px 14px 12px;
+    margin: 0 0 12px 14px;
+    box-shadow: 0 1px 2px rgba(33,30,27,0.04), 0 4px 14px rgba(33,30,27,0.05);
+  }
+  .card::before{
+    content:""; position:absolute; left:-24px; top:18px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--paris); border:2px solid var(--bg);
+  }
+  .card.disney::before{ background:var(--disney); }
+  .card.flight::before{ background:var(--flight); }
+  .card.train::before{ background:var(--train); }
 
-    header p {
-      margin: 0;
-      opacity: 0.9;
-      font-size: 0.95rem;
-    }
+  .row-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; gap:8px;}
+  .time{ font-size:13px; font-weight:700; color:var(--paris); white-space:nowrap;}
+  .card.disney .time{ color:var(--disney); }
+  .card.flight .time{ color:var(--flight); }
+  .card.train .time{ color:var(--train); }
 
-    /* Tab Layout iOS compatible con enlaces nativos */
-    .tabs {
-      display: flex;
-      background-color: #edf2f7;
-      border-bottom: 2px solid var(--border);
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
+  .badge{
+    font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:100px;
+    background:var(--paris-soft); color:var(--paris); white-space:nowrap;
+  }
+  .badge.disney{ background:var(--disney-soft); color:var(--disney); }
+  .badge.flight{ background:var(--flight-soft); color:var(--flight); }
+  .badge.train{ background:var(--train-soft); color:var(--train); }
+  .badge.gold{ background:var(--gold-soft); color:#8A6512; }
 
-    .tab-btn {
-      flex: 1;
-      padding: 14px 16px;
-      border: none;
-      background: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #4a5568;
-      cursor: pointer;
-      white-space: nowrap;
-      text-align: center;
-      outline: none;
-      text-decoration: none;
-      display: block;
-      -webkit-touch-callout: none;
-      user-select: none;
-      -webkit-user-select: none;
-    }
+  .card h4{ margin:0 0 4px; font-size:15.5px; font-weight:700; line-height:1.3; }
+  .card p{ margin:0; font-size:13.5px; color:var(--muted); line-height:1.45; }
+  .card ul.details{ margin:8px 0 0; padding-left:18px; }
+  .card ul.details li{ font-size:13px; color:var(--muted); margin-bottom:3px; line-height:1.42; }
+  .card ul.details li::marker{ color:var(--disney); }
 
-    .tab-btn:hover {
-      background-color: #e2e8f0;
-      color: var(--primary);
-    }
+  .spot-link {
+    color: var(--paris);
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 1px 3px;
+    border-radius: 4px;
+    background: rgba(29,53,87,0.06);
+  }
+  .card.disney .spot-link {
+    color: var(--disney);
+    background: rgba(163,26,99,0.06);
+  }
 
-    .tab-btn.active {
-      color: var(--secondary);
-      background-color: var(--card-bg);
-      border-bottom: 3px solid var(--secondary);
-    }
+  .pins{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .pin{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:12.5px; font-weight:600; color:var(--paris);
+    background:var(--paris-soft);
+    padding:6px 10px; border-radius:10px;
+    text-decoration:none;
+    border:1px solid rgba(29,53,87,0.08);
+  }
+  .card.disney .pin{ color:var(--disney); background:var(--disney-soft); border-color:rgba(163,26,99,0.1); }
+  .card.flight .pin{ color:var(--flight); background:var(--flight-soft); border-color:rgba(201,113,31,0.08); }
+  .card.train .pin{ color:var(--train); background:var(--train-soft); border-color:rgba(106,76,147,0.08); }
+  .pin:active{ transform: scale(0.97); }
 
-    .tab-content {
-      display: none;
-      padding: 24px;
-    }
+  /* ---------- Magic callout (night shows) ---------- */
+  .magic-card{
+    position:relative;
+    background: linear-gradient(135deg, #3B1750 0%, #6A1F5E 55%, #7E2A63 100%);
+    color:#FBF1E7;
+    border-radius:18px;
+    padding:16px 16px 14px;
+    margin: 0 0 14px 14px;
+    box-shadow: 0 8px 22px rgba(90,20,80,0.28);
+    border:1px solid rgba(231,178,61,0.4);
+    overflow:hidden;
+  }
+  .magic-card::before{
+    content:""; position:absolute; left:-24px; top:20px;
+    width:11px; height:11px; border-radius:50%;
+    background:var(--gold); border:2px solid var(--bg); box-shadow:0 0 0 3px rgba(231,178,61,0.25);
+  }
+  .magic-card::after{
+    content:"✨"; position:absolute; right:14px; top:10px; font-size:18px; opacity:0.85;
+  }
+  .magic-card .time-badge{
+    display:inline-block; background:rgba(231,178,61,0.2); color:#F3CB6E;
+    font-size:10.5px; font-weight:700; padding:3px 10px; border-radius:100px; margin-bottom:8px;
+    letter-spacing:0.2px;
+  }
+  .magic-card h4{ color:#F3CB6E; margin:0 0 6px; font-size:15.5px; }
+  .magic-card p{ color:#EDE1F0; font-size:13.5px; line-height:1.5; margin:0 0 4px;}
+  .magic-card ul{ padding-left:18px; margin:8px 0 0; }
+  .magic-card ul li{ color:#EDE1F0; font-size:13px; margin-bottom:5px; line-height:1.45; }
+  .magic-card ul li::marker{ color:#F3CB6E; }
 
-    .tab-content.active {
-      display: block;
-    }
+  /* ---------- Ticket cards (transporte) ---------- */
+  .ticket{
+    background:var(--card); border-radius:18px; margin:0 0 16px;
+    box-shadow: 0 1px 2px rgba(33,30,27,0.04), 0 6px 18px rgba(33,30,27,0.06);
+    overflow:hidden;
+  }
+  .ticket-head{
+    padding:14px 16px; color:#fff;
+    background:var(--flight);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .ticket.train .ticket-head{ background:var(--train); }
+  .ticket-head .label{ font-size:11.5px; font-weight:700; opacity:0.85; }
+  .ticket-head .route{ font-size:15px; font-weight:700; margin-top:2px; }
+  .ticket-body{ padding:14px 16px; }
+  .ticket-row{ display:flex; justify-content:space-between; font-size:13.5px; margin-bottom:6px; }
+  .ticket-row span:first-child{ color:var(--muted); }
+  .ticket-row span:last-child{ font-weight:600; text-align:right;}
+  .ticket-divider{
+    height:1px; margin:10px 0;
+    background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px);
+  }
 
-    /* Cards & Items */
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 20px;
-      padding: 18px;
-      background-color: #fff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
+  /* ---------- Hotel cards ---------- */
+  .hotel{
+    background:var(--card); border-radius:16px; padding:14px; margin-bottom:12px;
+    box-shadow: 0 1px 2px rgba(33,30,27,0.04), 0 4px 14px rgba(33,30,27,0.05);
+    border-left:4px solid var(--paris);
+  }
+  .hotel.disney{ border-left-color:var(--disney); }
+  .hotel .dates{ font-size:12px; font-weight:700; color:var(--muted); margin-bottom:4px; }
+  .hotel h4{ margin:0 0 4px; font-size:15px; font-weight:700; }
+  .hotel p{ margin:0 0 8px; font-size:13px; color:var(--muted); }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+  section.tabpanel{ display:none; }
+  section.tabpanel.active{ display:block; }
 
-    .time-title {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--primary);
-    }
+  /* ---------- Disney tab: magical sky ---------- */
+  #tab-disney{
+    background:
+      radial-gradient(circle at 12% 8%, rgba(255,255,255,0.9) 0 1.4px, transparent 1.6px),
+      radial-gradient(circle at 32% 18%, rgba(255,255,255,0.7) 0 1.2px, transparent 1.4px),
+      radial-gradient(circle at 68% 6%, rgba(255,255,255,0.8) 0 1.3px, transparent 1.5px),
+      radial-gradient(circle at 85% 22%, rgba(255,255,255,0.6) 0 1.2px, transparent 1.4px),
+      radial-gradient(circle at 50% 30%, rgba(255,255,255,0.5) 0 1.1px, transparent 1.3px),
+      radial-gradient(circle at 6% 40%, rgba(255,255,255,0.55) 0 1.2px, transparent 1.4px),
+      radial-gradient(circle at 92% 45%, rgba(255,255,255,0.55) 0 1.2px, transparent 1.4px),
+      linear-gradient(180deg, #241238 0%, #3B1750 18%, #FAF6EF 32%);
+    background-repeat:no-repeat;
+    background-size:100% 480px;
+  }
+  .disney-hero{
+    padding: 26px 20px 34px;
+    text-align:center;
+    color:#F8EFDD;
+    position:relative;
+  }
+  .disney-hero .castle{ width:120px; height:auto; margin:0 auto 8px; display:block; }
+  .disney-hero h2{
+    font-family:"Fredoka", sans-serif; font-weight:600; font-size:24px; margin:4px 0 4px;
+    color:#F8EFDD; letter-spacing:0.2px;
+  }
+  .disney-hero p{ margin:0; font-size:13px; color:#D9C3E4; }
+  .disney .day-number{ background:var(--disney); }
+  #tab-disney .day-title{ font-family:"Fredoka", sans-serif; font-weight:600; }
 
-    .badge {
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
-    }
+  /* ---------- Bottom tab bar ---------- */
+  .tabbar{
+    position:fixed; left:0; right:0; bottom:0;
+    display:flex;
+    background:rgba(250,246,239,0.92);
+    backdrop-filter:saturate(180%) blur(14px);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+    border-top:1px solid var(--line);
+    padding: 6px 6px calc(6px + var(--safe-bottom));
+    z-index:20;
+  }
+  .tab{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+    background:none; border:none; padding:6px 2px;
+    color:var(--muted); font-size:10.5px; font-weight:600;
+    font-family:-apple-system, sans-serif;
+  }
+  .tab svg{ width:22px; height:22px; }
+  .tab.active{ color:var(--paris); }
+  .tab.active[data-tab="disney"]{ color:var(--disney); }
+  .tab.active[data-tab="transportes"]{ color:var(--flight); }
+  .tab:active{ opacity:0.6; }
 
-    .badge-star {
-      color: var(--badge-star);
-      background-color: var(--badge-star-bg);
-      border: 1px solid #feb2b2;
-    }
+  /* ---------- Modal Spot Component ---------- */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .modal-content {
+    background-color: #fff;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    animation: popIn 0.25s ease-out;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #4a5568;
+    cursor: pointer;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .modal-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .modal-body {
+    padding: 18px 20px;
+  }
+  .modal-body h3 {
+    margin: 0 0 8px 0;
+    color: var(--paris);
+    font-size: 1.3rem;
+  }
+  .modal-body p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0;
+  }
 
-    .badge-sub {
-      color: var(--badge-sub);
-      background-color: var(--badge-sub-bg);
-      border: 1px solid #bee3f8;
-    }
+  /* ---------- Added Disney checklist and practical information tabs ---------- */
+  .tab[data-tab="checklist"].active{color:var(--disney)}
+  .tab[data-tab="info"].active{color:var(--paris)}
+  .checklist-content,.info-content{padding-bottom:calc(90px + var(--safe-bottom));}
+  .checklist-hero,.info-hero{padding:20px 16px 18px;background:linear-gradient(135deg,#2f1746,#69458a);color:#fff;border-radius:18px;margin:14px 0 16px;}
+  .checklist-hero h2,.info-hero h2{font-family:"Fredoka",sans-serif;font-size:23px;margin:0 0 6px;}
+  .checklist-hero p,.info-hero p{font-size:13px;line-height:1.5;margin:0;color:#f0e7f7;}
+  .check-progress{background:var(--card);border-radius:14px;padding:13px 15px;margin:0 0 16px;box-shadow:0 2px 10px rgba(33,30,27,.05);}
+  .check-progress-top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;}
+  .check-progress-track{height:8px;background:var(--line);border-radius:99px;overflow:hidden;}
+  #checkProgressBar{height:100%;width:0;background:var(--disney);border-radius:99px;transition:width .2s ease;}
+  .check-group,.info-card{background:var(--card);border-radius:16px;padding:14px;margin:0 0 13px;box-shadow:0 2px 10px rgba(33,30,27,.045);}
+  .check-group h3,.info-card h3{font-size:15px;margin:0 0 12px;color:var(--paris);font-weight:750;}
+  .check-items{display:flex;flex-direction:column;gap:2px;}
+  .check-item{display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:center;gap:9px;padding:10px 0;border-top:1px solid var(--line);cursor:pointer;}
+  .check-item-input{width:18px;height:18px;accent-color:var(--disney);margin:0;}
+  .check-item-name{font-size:13px;line-height:1.35;}
+  .check-item-tag{font-size:10px;color:var(--muted);text-align:right;max-width:110px;}
+  .check-item:has(input:checked) .check-item-name{text-decoration:line-through;color:var(--muted);}
+  .info-card ul{padding-left:19px;margin:0;}
+  .info-card li{font-size:13px;line-height:1.55;color:var(--text);margin:0 0 9px;}
+  .info-card li:last-child{margin-bottom:0;}
+  @media(min-width:700px){.check-items{display:grid;grid-template-columns:1fr 1fr;column-gap:22px;}.check-item{align-items:start;}}
 
-    /* Transport Box */
-    .transport-box {
-      background-color: #f7fafc;
-      border-left: 4px solid var(--secondary);
-      padding: 10px 14px;
-      margin: 10px 0 14px 0;
-      font-size: 0.9rem;
-      border-radius: 0 4px 4px 0;
-    }
-
-    .transport-box strong {
-      color: var(--secondary);
-    }
-
-    .duration {
-      display: inline-block;
-      margin-top: 4px;
-      font-weight: 600;
-      color: #718096;
-    }
-
-    .details p {
-      margin: 0 0 8px 0;
-      font-size: 0.95rem;
-    }
-
-    .details ul {
-      margin: 0;
-      padding-left: 20px;
-      font-size: 0.9rem;
-    }
-
-    /* Interactive Links for Spots */
-    .spot-link {
-      color: var(--secondary);
-      font-weight: 700;
-      text-decoration: underline;
-      cursor: pointer;
-      transition: color 0.2s;
-      display: inline-block;
-      padding: 1px 2px;
-    }
-
-    .spot-link:hover {
-      color: var(--primary);
-      background-color: #ebf8ff;
-      border-radius: 3px;
-    }
-
-    .map-link {
-      display: inline-block;
-      margin-top: 8px;
-      color: var(--secondary);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .map-link:hover {
-      text-decoration: underline;
-    }
-
-    .banner {
-      background-color: #feebc8;
-      border: 1px solid #fbd38d;
-      color: #744210;
-      padding: 12px 16px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-      font-size: 0.9rem;
-    }
-
-    /* Modal Component */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      box-sizing: border-box;
-    }
-
-    .modal-content {
-      background-color: #fff;
-      border-radius: 12px;
-      max-width: 600px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      position: relative;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 28px;
-      font-weight: bold;
-      color: #a0aec0;
-      cursor: pointer;
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-    }
-
-    .close-btn:hover {
-      color: var(--primary);
-      background: #edf2f7;
-    }
-
-    .modal-img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-    }
-
-    .modal-body {
-      padding: 20px 24px;
-    }
-
-    .modal-body h3 {
-      margin-top: 0;
-      color: var(--primary);
-      font-size: 1.4rem;
-    }
-
-    .modal-body p {
-      font-size: 0.95rem;
-      color: #4a5568;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 600px) {
-      body { padding: 8px; }
-      .tab-btn { font-size: 0.85rem; padding: 10px 12px; }
-      .card-header { flex-direction: column; align-items: flex-start; }
-      .modal-img { height: 180px; }
-    }
-  </style>
+  .recommended-star{display:inline-block;margin-right:5px;color:#d49a18;font-size:14px;line-height:1;vertical-align:baseline} .checklist-legend{font-size:12px;color:var(--muted);margin:-3px 0 12px;}
+</style>
 </head>
 <body>
-
-<div class="container">
-  <header>
-    <h1>🇫🇷 Guía de Viaje: París 2026</h1>
-    <p>Haz clic en los nombres en azul para ver la foto y detalles del lugar</p>
-  </header>
-
-  <nav class="tabs">
-    <a href="javascript:void(0)" class="tab-btn active" data-tab="viernes">Viernes 16 Oct</a>
-    <a href="javascript:void(0)" class="tab-btn" data-tab="sabado">Sábado 17 Oct</a>
-    <a href="javascript:void(0)" class="tab-btn" data-tab="domingo">Domingo 18 Oct</a>
-    <a href="javascript:void(0)" class="tab-btn" data-tab="lunes">Lunes 19 Oct</a>
-  </nav>
-
-  <!-- VIERNES 16 OCTUBRE -->
-  <div id="viernes" class="tab-content active">
-    <h2>🛬 Viernes 16 Octubre: Llegada a París</h2>
-    
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">Llegada y Traslado al Hotel</span>
-      </div>
-      
-      <div class="transport-box">
-        <strong>🚆 Traslado en Transporte Público:</strong><br>
-        1. <strong>Metro L14:</strong> Desde <em>Aéroport d'Orly</em> hasta <em>Maison Blanche</em>.<br>
-        2. <strong>Metro L7:</strong> Cambio hacia <em>Villejuif-Louis Aragon</em> hasta <em>Porte d'Italie</em>.<br>
-        3. <strong>Tranvía T3a:</strong> Dirección <em>Pont de Garigliano</em> hasta <em>Desnouettes</em> o <em>Pont de Garigliano</em>.<br>
-        <span class="duration">⏱️ Duración total: ~45 - 55 min (incluye 7 min a pie)</span>
-      </div>
-
-      <div class="transport-box" style="border-left-color: #a0aec0;">
-        <strong>🚕 Opción Alternativa (Taxi/Uber):</strong><br>
-        Trayecto directo desde Orly T1 al hotel.<br>
-        <span class="duration">⏱️ Duración: ~25 - 30 min</span>
-      </div>
-
-      <div class="details">
-        <p><strong>Alojamiento:</strong> ibis Paris Issy les Moulineaux Val de Seine</p>
-        <a href="https://maps.google.com/?q=ibis+Paris+Issy+les+Moulineaux+Val+de+Seine" target="_blank" class="map-link">📍 Abrir Hotel en Google Maps</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- SÁBADO 17 OCTUBRE -->
-  <div id="sabado" class="tab-content">
-    <h2>🏛️ Sábado 17 Octubre: El Gran Eje Monumental</h2>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">1. Del Hotel al Arco del Triunfo (09:00 - 09:35 h)</span>
-        <span class="badge badge-star">⭐ Imprescindible</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚇 Metro:</strong> L12 desde <em>Mairie d'Issy</em> hasta <em>Pasteur</em> (15 min) ➔ Transbordo a L6 hacia <em>Charles de Gaulle - Étoile</em> (12 min).<br>
-        <span class="duration">⏱️ Duración total: ~30 - 35 min</span>
-      </div>
-      <div class="details">
-        <p><span class="spot-link" data-spot="arco">Arco del Triunfo</span> &amp; <span class="spot-link" data-spot="elysees">Campos Elíseos</span>: Fotos del imponente monumento e inicio del paseo por la famosa avenida.</p>
-        <a href="https://maps.google.com/?q=Arc+de+Triomphe+Paris" target="_blank" class="map-link">📍 Ver Arco del Triunfo en Google Maps</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">2. Al Trocadéro y Torre Eiffel (10:30 - 10:40 h)</span>
-        <span class="badge badge-star">⭐ Imprescindible</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚇 Metro Directo:</strong> L6 desde <em>Charles de Gaulle - Étoile</em> hasta <em>Trocadéro</em> (3 paradas).<br>
-        <span class="duration">⏱️ Duración: ~5 - 7 min</span>
-      </div>
-      <div class="details">
-        <p><span class="spot-link" data-spot="trocadero">Trocadéro</span> &amp; <span class="spot-link" data-spot="eiffel">Torre Eiffel</span>: Mirador panorámico, bajada por las fuentes y paseo por el Campo de Marte.</p>
-        <a href="https://maps.google.com/?q=Plaza+del+Trocadero+Paris" target="_blank" class="map-link">📍 Ver Trocadéro</a> | 
-        <a href="https://maps.google.com/?q=Torre+Eiffel+Paris" target="_blank" class="map-link">📍 Ver Torre Eiffel</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">3. Paseo en Barco por el Sena (14:15 - 14:30 h)</span>
-        <span class="badge badge-star">⭐ Imprescindible</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚶 Caminando:</strong> Bajada a pie desde la Torre Eiffel hacia el río Sena (Port de la Bourdonnais).<br>
-        <span class="duration">⏱️ Duración paseo: ~10 - 12 min</span>
-      </div>
-      <div class="details">
-        <p><span class="spot-link" data-spot="bateaux">Bateaux Parisiens (14:30 h)</span>: Recorrido panorámico en barco para ver desde el agua el Museo d'Orsay, Grand Palais, Petit Palais y la Asamblea Nacional.</p>
-        <a href="https://maps.google.com/?q=Bateaux+Parisiens+Port+de+la+Bourdonnais+Paris" target="_blank" class="map-link">📍 Ver Embarcadero</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">4. Concordia, Tullerías y Louvre (16:00 - 16:25 h)</span>
-        <span class="badge badge-sub">🔹 Secundario / ⭐ Imprescindible</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚶 Caminando:</strong> Paseo agradable bordeando el río Sena y cruzando los jardines.<br>
-        <span class="duration">⏱️ Duración paseo: ~20 - 25 min</span>
-      </div>
-      <div class="details">
-        <ul>
-          <li><span class="spot-link" data-spot="concorde">Plaza de la Concordia</span> &amp; <span class="spot-link" data-spot="tuileries">Jardines de las Tullerías</span> (Secundario): Obelisco egipcio y zona verde de descanso.</li>
-          <li><span class="spot-link" data-spot="louvre">Pirámide del Louvre</span> &amp; Patio del Palacio (Imprescindible): Fotos exteriores al atardecer.</li>
-        </ul>
-        <a href="https://maps.google.com/?q=Pyramide+du+Louvre+Paris" target="_blank" class="map-link">📍 Ver Pirámide del Louvre</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">5. Vuelta al Hotel (18:30 h)</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚇 Metro Directo:</strong> L12 desde <em>Concorde</em> hasta <em>Mairie d'Issy</em>.<br>
-        <span class="duration">⏱️ Duración: ~25 min (+ 6 min a pie al hotel)</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- DOMINGO 18 OCTUBRE -->
-  <div id="domingo" class="tab-content">
-    <h2>🌹 Domingo 18 Octubre: Centro Histórico, Luxemburgo y Compras</h2>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">1. Del Hotel a Île de la Cité (09:00 - 09:30 h)</span>
-        <span class="badge badge-star">⭐ Imprescindible</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚇 Metro:</strong> L12 desde <em>Mairie d'Issy</em> a <em>Sèvres - Babylone</em> ➔ Transbordo a L10 hacia <em>Cluny - La Sorbonne</em>.<br>
-        <span class="duration">⏱️ Duración: ~25 - 30 min</span>
-      </div>
-      <div class="details">
-        <p><strong>Île de la Cité:</strong> Exterior de <span class="spot-link" data-spot="notredame">Notre Dame</span>, <span class="spot-link" data-spot="flores">Mercado de Flores</span> y fachadas de la <span class="spot-link" data-spot="chapelle">Sainte-Chapelle</span> y la Conciergerie.</p>
-        <a href="https://maps.google.com/?q=Catedral+de+Notre+Dame+Paris" target="_blank" class="map-link">📍 Ver Notre Dame</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">2. Panteón y Jardines de Luxemburgo (11:00 - 11:20 h)</span>
-        <span class="badge badge-sub">🔹 Secundario / ⭐ Imprescindible</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚶 Caminando:</strong> Subida a pie por el Barrio Latino (Rue Saint-Jacques).<br>
-        <span class="duration">⏱️ Duración: ~12 min al Panteón + 5 min a Luxemburgo</span>
-      </div>
-      <div class="details">
-        <ul>
-          <li><span class="spot-link" data-spot="pantheon">Barrio Latino &amp; Panteón</span> (Secundario): Vistas exteriores del imponente edificio.</li>
-          <li><span class="spot-link" data-spot="luxembourg">Jardines de Luxemburgo</span> (Imprescindible): Palacio, fuentes, barco de madera y zona infantil.</li>
-        </ul>
-        <a href="https://maps.google.com/?q=Jardin+du+Luxembourg+Paris" target="_blank" class="map-link">📍 Ver Jardines de Luxemburgo</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">3. A Galeries Lafayette &amp; Ópera (15:00 - 15:25 h)</span>
-        <span class="badge badge-star">⭐ Imprescindible</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚇 Metro:</strong> L4 desde <em>Odéon</em> a <em>Châtelet</em> ➔ Transbordo a L7 hacia <em>Chaussée d'Antin - La Fayette</em>.<br>
-        <span class="duration">⏱️ Duración: ~20 - 25 min</span>
-      </div>
-      <div class="details">
-        <ul>
-          <li><span class="spot-link" data-spot="opera">Ópera Garnier</span> (Secundario): Admira la fachada neobarroca por fuera.</li>
-          <li><span class="spot-link" data-spot="lafayette">Galeries Lafayette Haussmann</span> (Imprescindible): Cúpula de cristal y vistas espectaculares gratuitas desde la terraza superior (Rooftop).</li>
-        </ul>
-        <a href="https://maps.google.com/?q=Galeries+Lafayette+Haussmann" target="_blank" class="map-link">📍 Ver Galeries Lafayette</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">4. Vuelta al Hotel (18:00 h)</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚇 Metro Directo:</strong> L12 desde <em>Trinité - d'Estienne d'Orves</em> hasta <em>Mairie d'Issy</em>.<br>
-        <span class="duration">⏱️ Duración: ~25 - 28 min</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- LUNES 19 OCTUBRE -->
-  <div id="lunes" class="tab-content">
-    <h2>🎨 Lunes 19 Octubre: Montmartre y Traslado a Disney</h2>
-
-    <div class="banner">
-      <strong>🧳 Gestión de Equipaje:</strong> Dejad las maletas en la consigna de la recepción del hotel de Issy a las 08:45 h antes de salir hacia Montmartre.
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">1. Del Hotel a Montmartre (09:00 - 09:35 h)</span>
-        <span class="badge badge-star">⭐ Imprescindible</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚇 Metro Directo:</strong> L12 desde <em>Mairie d'Issy</em> hasta <em>Abbesses</em>.<br>
-        <span class="duration">⏱️ Duración: ~32 - 35 min</span>
-      </div>
-      <div class="details">
-        <p><strong>Montmartre &amp; Sacré-Cœur:</strong></p>
-        <ul>
-          <li>Subida en el <span class="spot-link" data-spot="funicular">Funicular de Montmartre</span> (~1,5 min de trayecto).</li>
-          <li>Basílica del <span class="spot-link" data-spot="sacrecoeur">Sacré-Cœur</span> y vista panorámica.</li>
-          <li>Paseo por la <span class="spot-link" data-spot="tertre">Place du Tertre</span> (Plaza de los Pintores).</li>
-          <li>Bajada a pie hacia el <span class="spot-link" data-spot="moulin">Moulin Rouge</span> (Secundario / Foto exterior).</li>
-        </ul>
-        <a href="https://maps.google.com/?q=Basílica+del+Sagrado+Corazón+Paris" target="_blank" class="map-link">📍 Ver Sacré-Cœur</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span class="time-title">2. Vuelta al Hotel a por Maletas (11:30 - 12:00 h)</span>
-      </div>
-      <div class="transport-box">
-        <strong>🚇 Metro Directo:</strong> L12 desde <em>Blanche</em> o <em>Pigalle</em> hasta <em>Mairie d'Issy</em>.<br>
-        <span class="duration">⏱️ Duración: ~30 min</span>
-      </div>
-      <div class="details">
-        <p>Recoger las maletas custodiadas en la recepción del hotel.</p>
-      </div>
-    </div>
-
-    <div class="card" style="border-color: var(--accent);">
-      <div class="card-header">
-        <span class="time-title">3. Traslado a Disneyland Paris (12:15 - 13:40 h)</span>
-      </div>
-      <div class="transport-box" style="border-left-color: var(--accent);">
-        <strong>🚆 Ruta Combinada con Maletas:</strong><br>
-        1. <strong>Metro L12:</strong> <em>Mairie d'Issy</em> a <em>Concorde</em> (22 min).<br>
-        2. <strong>Metro L1:</strong> <em>Concorde</em> a <em>Nation</em> o <em>Gare de Lyon</em> (15 min).<br>
-        3. <strong>Tren RER A:</strong> Hasta <em>Marne-la-Vallée - Chessy</em> (40 min).<br>
-        <span class="duration">⏱️ Duración total: ~1h 15 min - 1h 25 min</span>
-      </div>
-      <div class="details">
-        <p><strong>Llegada a Disney (13:40 h):</strong> Coger autobús lanzadera gratuito (5 min) en la estación hasta el hotel <strong>Disney Newport Bay Club</strong> para el check-in e ir a comer al <strong>Agrabah Café (14:30 h)</strong>.</p>
-        <a href="https://maps.google.com/?q=Disney+Newport+Bay+Club" target="_blank" class="map-link">📍 Ver Hotel Disney</a>
-      </div>
-    </div>
-  </div>
-
+<div class="hero">
+<p class="hero-eyebrow">16 – 23 octubre 2026</p>
+<h1 class="hero-title">París · Disney · Barcelona</h1>
+<div class="hero-meta">
+<span class="hero-pill"><span class="hero-dot"></span><span id="countdown">calculando…</span></span>
+</div>
+</div>
+<!-- ITINERARIO -->
+<section class="tabpanel active" id="tab-itinerario">
+<div class="content">
+<!-- VIERNES 16 OCT -->
+<div class="day-block">
+<div class="day-header" onclick="toggleDay(this)">
+<div class="day-header-left">
+<span class="day-number">16</span>
+<div class="day-title-box">
+<h3 class="day-title">Viernes 16 Oct</h3>
+<p class="day-sub">🛬 Llegada a París</p>
+</div>
+</div>
+<span class="toggle-icon">▼</span>
+</div>
+<div class="day-content">
+<div class="timeline">
+<div class="card flight">
+<div class="row-top"><span class="time">20:05 → 22:05</span><span class="badge flight">Vuelo</span></div>
+<h4>Madrid (MAD T4) ✈ París Orly (ORY T1)</h4>
+<p>Vuelo Iberia IB583. Llegada a Orly T1 a las 22:05 h.</p>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">22:30</span><span class="badge">Traslado</span></div>
+<h4>Traslado al Hotel</h4>
+<p><strong>Opción Transporte Público (~45-55 min):</strong> Metro L14 (Aéroport d'Orly ➔ Maison Blanche), Metro L7 (➔ Porte d'Italie) y Tranvía T3a (➔ Desnouettes o Pont de Garigliano).</p>
+<p style="margin-top:6px;"><strong>Opción Taxi/Uber (~25-30 min):</strong> Trayecto directo desde Orly T1 al hotel.</p>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=ibis+Paris+Issy+les+Moulineaux+Val+de+Seine" target="_blank">📍 Hotel ibis Issy les Moulineaux</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SÁBADO 17 OCT -->
+<div class="day-block">
+<div class="day-header" onclick="toggleDay(this)">
+<div class="day-header-left">
+<span class="day-number">17</span>
+<div class="day-title-box">
+<h3 class="day-title">Sábado 17 Oct</h3>
+<p class="day-sub">🏛️ Eje Monumental &amp; Montmartre Nocturno</p>
+</div>
+</div>
+<span class="toggle-icon">▼</span>
+</div>
+<div class="day-content">
+<div class="timeline">
+<div class="card">
+<div class="row-top"><span class="time">09:00 – 10:30</span><span class="badge gold">⭐ Imprescindible</span></div>
+<h4><span class="spot-link" data-spot="arco">Arco del Triunfo</span> y <span class="spot-link" data-spot="elysees">Campos Elíseos</span></h4>
+<p>Fotos del imponente monumento e inicio del paseo por la avenida.</p>
+<ul class="details">
+<li><strong>Metro:</strong> L12 desde Mairie d'Issy a Pasteur ➔ L6 a Charles de Gaulle - Étoile (~30-35 min).</li>
+</ul>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Arc+de+Triomphe+Paris" target="_blank">📍 Arco del Triunfo</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">10:30 – 13:00</span><span class="badge gold">⭐ Imprescindible</span></div>
+<h4><span class="spot-link" data-spot="trocadero">Trocadéro</span> y <span class="spot-link" data-spot="eiffel">Torre Eiffel</span></h4>
+<p>Mirador panorámico y paseo por el Campo de Marte.</p>
+<ul class="details">
+<li><strong>Metro directo:</strong> L6 desde Charles de Gaulle - Étoile hasta Trocadéro (~5-7 min).</li>
+</ul>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Place+du+Trocadero+Paris" target="_blank">📍 Trocadéro</a>
+<a class="pin" href="https://maps.apple.com/?q=Eiffel+Tower+Paris" target="_blank">📍 Torre Eiffel</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">14:15 – 15:40</span><span class="badge gold">⭐ Imprescindible</span></div>
+<h4>Paseo en Barco por el Sena (<span class="spot-link" data-spot="bateaux">Bateaux Parisiens</span> - 14:30 h)</h4>
+<p>Recorrido panorámico en barco por los principales monumentos ribereños desde la Torre Eiffel (~10 min a pie).</p>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Bateaux+Parisiens+Port+de+la+Bourdonnais" target="_blank">📍 Embarcadero Bateaux Parisiens</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">16:00 – 18:15</span><span class="badge">Paseo</span></div>
+<h4><span class="spot-link" data-spot="concorde">Concordia</span>, <span class="spot-link" data-spot="tuileries">Tullerías</span> y <span class="spot-link" data-spot="louvre">Pirámide del Louvre</span></h4>
+<p>Paseo bordeando el Sena a pie (~20 min): Plaza de la Concordia, Jardines de las Tullerías y fotos exteriores en la Pirámide del Louvre.</p>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Place+de+la+Concorde+Paris" target="_blank">📍 Plaza de la Concordia</a>
+<a class="pin" href="https://maps.apple.com/?q=Pyramide+du+Louvre+Paris" target="_blank">📍 Pirámide del Louvre</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">18:30 – 21:00</span><span class="badge gold">⭐ Imprescindible</span></div>
+<h4>Montmartre al Atardecer y Cena</h4>
+<p>Subida en el <span class="spot-link" data-spot="funicular">Funicular de Montmartre</span>, vistas desde el <span class="spot-link" data-spot="sacrecoeur">Sacré-Cœur</span>, paseo por la <span class="spot-link" data-spot="tertre">Place du Tertre</span> e iluminación del <span class="spot-link" data-spot="moulin">Moulin Rouge</span>. Cena en Montmartre.</p>
+<ul class="details">
+<li><strong>Metro:</strong> L12 desde Concorde hasta Abbesses (~20 min).</li>
+</ul>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Sacre+Coeur+Paris" target="_blank">📍 Sacré-Cœur</a>
+<a class="pin" href="https://maps.apple.com/?q=Place+du+Tertre+Paris" target="_blank">📍 Place du Tertre</a>
+<a class="pin" href="https://maps.apple.com/?q=Moulin+Rouge+Paris" target="_blank">📍 Moulin Rouge</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">21:30</span><span class="badge">Regreso</span></div>
+<h4>Vuelta al Hotel</h4>
+<p>Metro directo L12 desde Pigalle o Blanche hasta Mairie d'Issy (~30 min).</p>
+</div>
+</div>
+</div>
+</div>
+<!-- DOMINGO 18 OCT -->
+<div class="day-block">
+<div class="day-header" onclick="toggleDay(this)">
+<div class="day-header-left">
+<span class="day-number">18</span>
+<div class="day-title-box">
+<h3 class="day-title">Domingo 18 Oct</h3>
+<p class="day-sub">🌹 Centro Histórico, Ópera &amp; Paseo Nocturno</p>
+</div>
+</div>
+<span class="toggle-icon">▼</span>
+</div>
+<div class="day-content">
+<div class="timeline">
+<div class="card">
+<div class="row-top"><span class="time">09:00 – 11:00</span><span class="badge gold">⭐ Imprescindible</span></div>
+<h4>Île de la Cité, <span class="spot-link" data-spot="flores">Mercado de Flores</span> &amp; <span class="spot-link" data-spot="chapelle">Sainte-Chapelle</span></h4>
+<p>Exterior de <span class="spot-link" data-spot="notredame">Notre Dame</span>, paseo por el Mercado de Flores y la Sainte-Chapelle.</p>
+<ul class="details">
+<li><strong>Metro:</strong> L12 a Sèvres - Babylone ➔ L10 a Cluny - La Sorbonne (~25-30 min).</li>
+</ul>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Notre+Dame+Cathedral+Paris" target="_blank">📍 Notre Dame</a>
+<a class="pin" href="https://maps.apple.com/?q=Marche+aux+Fleurs+Reine+Elizabeth+II+Paris" target="_blank">📍 Mercado de Flores</a>
+<a class="pin" href="https://maps.apple.com/?q=Sainte+Chapelle+Paris" target="_blank">📍 Sainte-Chapelle</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">11:00 – 14:00</span><span class="badge">Paseo</span></div>
+<h4>Barrio Latino, <span class="spot-link" data-spot="pantheon">Panteón</span> y <span class="spot-link" data-spot="luxembourg">Jardines de Luxemburgo</span></h4>
+<p>Paseo a pie por el Barrio Latino (~12 min al Panteón). Descanso en los Jardines de Luxemburgo (palacio, estanques y parque infantil).</p>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Pantheon+Paris" target="_blank">📍 Panteón</a>
+<a class="pin" href="https://maps.apple.com/?q=Jardin+du+Luxembourg+Paris" target="_blank">📍 Jardines de Luxemburgo</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">15:00 – 18:30</span><span class="badge gold">⭐ Imprescindible</span></div>
+<h4><span class="spot-link" data-spot="opera">Ópera Garnier</span> &amp; <span class="spot-link" data-spot="lafayette">Galeries Lafayette</span></h4>
+<p>Fachada de la Ópera Garnier y visita a Galeries Lafayette (cúpula art nouveau y vistas desde el Rooftop).</p>
+<ul class="details">
+<li><strong>Metro:</strong> L4 de Odéon a Châtelet ➔ L7 a Chaussée d'Antin - La Fayette (~20-25 min).</li>
+</ul>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Palais+Garnier+Paris" target="_blank">📍 Ópera Garnier</a>
+<a class="pin" href="https://maps.apple.com/?q=Galeries+Lafayette+Haussmann+Paris" target="_blank">📍 Galeries Lafayette</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">18:30 – 21:00</span><span class="badge">Cena</span></div>
+<h4>Grandes Bulevares y Cena</h4>
+<p>Paseo por los bulevares iluminados de Haussmann y cena en una brasserie tradicional.</p>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">21:30</span><span class="badge">Regreso</span></div>
+<h4>Vuelta al Hotel</h4>
+<p>Metro directo L12 desde Trinité - d'Estienne d'Orves hasta Mairie d'Issy (~25 min).</p>
+</div>
+</div>
+</div>
+</div>
+<!-- LUNES 19 OCT -->
+<div class="day-block disney-day">
+<div class="day-header" onclick="toggleDay(this)">
+<div class="day-header-left">
+<span class="day-number">19</span>
+<div class="day-title-box">
+<h3 class="day-title">🏰 Lunes 19 Oct</h3>
+<p class="day-sub">Llegada · espectáculos prioritarios y opción de Tales of Magic a las 22:00</p>
+</div>
+</div>
+<span class="toggle-icon">▼</span>
+</div>
+<div class="day-content"><div class="timeline"><div class="card disney"><div class="row-top"><span class="time">08:30–10:30</span><span class="badge disney">Traslado</span></div><h4>Traslado y consigna en Newport Bay Club</h4><p>Mantened la salida en la franja prevista, sin adelantar más la mañana. Para reducir transbordos: llegad a Issy–Val de Seine, tomad el tranvía T2 hasta La Défense y allí el RER A hasta Marne-la-Vallée–Chessy. Dejad las maletas en consigna en Newport Bay Club y entrad al parque. El trayecto propuesto tiene un único transbordo principal; comprobad incidencias y tiempos en Île-de-France Mobilités el mismo día.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=Disneys+Newport+Bay+Club" rel="noopener" target="_blank">📍 Newport Bay Club</a></div></div><div class="card disney"><div class="row-top"><span class="time">10:45–12:00</span><span class="badge disney">Ruta 1 · Fantasyland</span></div><h4>Primer circuito de atracciones recomendadas</h4><p>Haced una ruta compacta y elegid por las esperas reales. No intentéis abarcar toda Fantasyland antes del primer espectáculo.</p><ul class="details"><li><span class="spot-link" data-spot="peterpan">Peter Pan’s Flight</span> si la espera es razonable</li><li>Dumbo The Flying Elephant</li><li>It’s a Small World</li><li>Casey Jr. y Les Pays des Contes de Fées si están cerca y la espera acompaña</li></ul></div><div class="card disney"><div class="row-top"><span class="time">12:00–12:45</span><span class="badge disney">Pausa y traslado</span></div><h4>Traslado y entrada a Discoveryland</h4><p>Salid de Fantasyland con margen para caminar hasta Discoveryland, ir al baño y entrar al teatro antes de la función de las 13:00.</p><ul class="details"><li>Aseos y agua antes del espectáculo</li></ul></div><div class="card disney"><div class="row-top"><span class="time">13:00–13:30</span><span class="badge disney">ESPECTÁCULO 1/12</span></div><h4>Mickey’s PhilharMagic</h4><p>Función de 30 minutos en Discoveryland. Horario aportado por vosotros; confirmad que el pase de las 13:00 está disponible ese día.</p></div><div class="card disney"><div class="row-top"><span class="time">13:30–14:20</span><span class="badge disney">Traslado tranquilo</span></div><h4>Camino a Adventureland</h4><p>Id hacia Agrabah Café sin cruzar de nuevo el parque. Si hay margen, aprovechad para fotos y ambiente, no para una cola larga.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=Agrabah+Cafe+Disneyland+Paris" rel="noopener" target="_blank">📍 Agrabah Café</a></div></div><div class="card disney"><div class="row-top"><span class="time">14:30</span><span class="badge disney">Reserva</span></div><h4>Agrabah Café</h4><p>Comida reservada. Conviene avisar al llegar si tenéis una hora de salida límite para el siguiente espectáculo.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=Agrabah+Cafe+Disneyland+Paris" rel="noopener" target="_blank">📍 Agrabah Café</a></div></div><div class="card disney"><div class="row-top"><span class="time">15:45–16:15</span><span class="badge disney">Atracciones cercanas</span></div><h4>Adventureland y entrada a Frontierland</h4><p>Después de comer, priorizad atracciones cercanas y dejad margen para llegar al punto del desfile. Si la comida se alarga, saltad esta franja.</p><ul class="details"><li><span class="spot-link" data-spot="piratas">Pirates of the Caribbean</span> prioridad recomendada</li><li>Le Passage Enchanté d’Aladdin si da tiempo</li></ul></div><div class="card disney"><div class="row-top"><span class="time">17:00–17:25</span><span class="badge disney">ESPECTÁCULO 2/12</span></div><h4>La Celebración de Halloween de Mickey</h4><p>Elegimos el pase de las 17:00 para que encaje con la llegada y la comida. ☔ Al aire libre: puede modificarse o cancelarse por lluvia o viento. Buscad sitio con antelación; hora y recorrido sujetos a la app.</p></div><div class="card disney"><div class="row-top"><span class="time">17:30–19:30</span><span class="badge disney">Ruta 2 · Frontierland</span></div><h4>Atracciones recomendadas sin montaña rusa</h4><p>Usad esta franja para actividades cercanas. Phantom Manor solo si a las niñas les apetece su ambientación oscura.</p><ul class="details"><li>Thunder Mesa Riverboat si está operativo</li><li>Phantom Manor opcional; ambientación oscura</li><li>La Cabaña de Robinson si aún no la habéis hecho</li></ul></div><div class="card disney"><div class="row-top"><span class="time">20:00</span><span class="badge disney">Cena flexible</span></div><h4>Casa Coco / Cowboy Cookout</h4><p>Cena sin reserva. Para intentar Tales of Magic, priorizad una cena ágil y acordad antes un plan de salida si las niñas se cansan.</p></div><div class="card disney"><div class="row-top"><span class="time">21:00–21:30</span><span class="badge disney">Descanso estratégico</span></div><h4>Pausa, aseos y abrigo</h4><p>Valorad una pausa sentadas y algo de abrigo. Si están realmente agotadas, volved al hotel: no merece la pena forzarlas solo por completar la lista.</p></div><div class="card disney"><div class="row-top"><span class="time">22:00–22:22</span><span class="badge disney">ESPECTÁCULO 3/12 · OBJETIVO</span></div><h4>Disney Tales of Magic</h4><p>Intentaría verlo el lunes para quitar presión a los días siguientes. Confirmad el horario y la zona de visión en la app. Si no llegan con energía, se convierte en el único espectáculo prescindible de este día.</p></div></div></div>
+</div>
+<!-- MARTES 20 OCT -->
+<div class="day-block disney-day"><div class="day-header" onclick="toggleDay(this)"><div class="day-header-left"><span class="day-number">20</span><div class="day-title-box"><h3 class="day-title">❄️ Martes 20 Oct</h3><p class="day-sub">Disney Adventure World · princesas, Arendelle y Chez Rémy sin poner en riesgo la reserva</p></div></div><span class="toggle-icon">▼</span></div>
+<div class="day-content"><div class="timeline">
+<div class="card disney"><div class="row-top"><span class="time">08:00–09:15</span><span class="badge disney">Extra Magic Time</span></div><h4>World of Frozen primero</h4><p>Si os apetece madrugar este día, aprovechad la primera hora para Frozen Ever After y fotos por Arendelle. Si preferís un comienzo tranquilo, no pasa nada por saltaros la atracción.</p><ul class="details"><li>Frozen Ever After, si la espera es razonable</li><li>Paseo y fotos en World of Frozen</li></ul></div>
+<div class="card disney"><div class="row-top"><span class="time">09:45</span><span class="badge disney">Reserva fija</span></div><h4>The Regal View Restaurant</h4><p>Desayuno con princesas. Disfrutadlo sin prisa; al terminar, id hacia Adventure Way para intentar ver la cabalgata de princesas de las 11:25.</p></div>
+<div class="card disney"><div class="row-top"><span class="time">11:25–11:53</span><span class="badge disney">Prioridad · al aire libre</span></div><h4>Disney Princess Cavalcade</h4><p>Primer intento para ver este desfile, antes de dejarlo para el último día. Buscad un punto cercano a Adventure Way y comprobad en la app el recorrido y la hora. ☔ Al aire libre: la lluvia o el viento pueden modificarlo o cancelarlo.</p></div>
+<div class="card disney"><div class="row-top"><span class="time">12:20–12:40</span><span class="badge disney">Prioridad · horario objetivo</span></div><h4>A Celebration in Arendelle</h4><p>Intentad el pase de las 12:20 en World of Frozen. Tras la cabalgata hay poco margen para cambiar de zona, así que movedos directamente y no añadáis otra actividad entre medias. Si no llegáis al pase de las 12:20, no persigáis el de las 13:20 si pone en riesgo la reserva de Chez Rémy: priorizad la comida y dejad Arendelle para otra ocasión. ☔ Es una experiencia en una zona abierta y puede verse afectada por el tiempo.</p></div>
+<div class="card disney"><div class="row-top"><span class="time">13:00–14:15</span><span class="badge disney">Pausa y traslado</span></div><h4>Ir hacia Worlds of Pixar</h4><p>Tras Arendelle, id directamente hacia Bistrot Chez Rémy. No incluyo Together en esta franja porque no queremos arriesgar la reserva de las 14:30 ni ir corriendo de un teatro a otro. Si no encaja, intentad Together en otro momento solo si el acceso a ambos parques y el horario lo permiten.</p></div>
+<div class="card disney"><div class="row-top"><span class="time">14:30</span><span class="badge disney">Reserva fija</span></div><h4><span class="spot-link" data-spot="chezremy">Bistrot Chez Rémy</span></h4><p>Comida reservada. Esta hora se mantiene como prioridad; no planifiquéis ningún espectáculo que pueda retrasaros antes de entrar.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=Bistrot+Chez+Remy+Disneyland+Paris" rel="noopener" target="_blank">📍 Chez Rémy</a></div></div>
+<div class="card disney"><div class="row-top"><span class="time">16:00–17:00</span><span class="badge disney">Actividad flexible</span></div><h4>Una atracción cercana y pausa</h4><p>Después de comer, elegid una sola atracción según la espera y cómo estén las niñas. No intentéis cruzar todo el parque si estáis cansadas.</p><ul class="details"><li>Ratatouille: The Adventure si la espera acompaña</li><li>Cars ROAD TRIP o paseo por Worlds of Pixar como alternativa tranquila</li></ul></div>
+<div class="card disney"><div class="row-top"><span class="time">17:25–17:55</span><span class="badge disney">Prioridad · interior</span></div><h4>Mickey and the Magician</h4><p>Objetivo para ver este espectáculo el martes, sin dejarlo para el último día. Función de 30 minutos en World Premiere Plaza; confirmad el pase de las 17:25 en la app.</p></div>
+<div class="card disney"><div class="row-top"><span class="time">19:30</span><span class="badge disney">Cena flexible</span></div><h4>Stark Factory</h4><p>Cena sin reserva. Ajustad la hora al hambre y al cansancio; no hace falta llenar cada hueco.</p></div>
+<div class="card disney"><div class="row-top"><span class="time">21:50–22:10</span><span class="badge disney">Espectáculo nocturno · exterior</span></div><h4>Disney Cascade of Lights</h4><p>Si las niñas tienen energía, id con tiempo a la zona de Adventure Way. ☔ Es un espectáculo al aire libre y puede modificarse o cancelarse por lluvia, viento u otras condiciones. Confirmadlo en la app; si están agotadas, regresad al hotel sin culpa.</p></div>
+</div></div></div>
+<!-- MIÉRCOLES 21 OCT -->
+<div class="day-block disney-day">
+<div class="day-header" onclick="toggleDay(this)">
+<div class="day-header-left">
+<span class="day-number">21</span>
+<div class="day-title-box">
+<h3 class="day-title">👑 Miércoles 21 Oct</h3>
+<p class="day-sub">Disneyland Park · Fantasyland, Stars on Parade, Royal Banquet y Lion King</p>
+</div>
+</div>
+<span class="toggle-icon">▼</span>
+</div>
+<div class="day-content"><div class="timeline"><div class="card disney"><div class="row-top"><span class="time">08:00–10:45</span><span class="badge disney">Extra Magic Time · Ruta 1</span></div><h4>Completar Fantasyland sin repetir</h4><p>Empezad por las recomendadas que no hicisteis el lunes y avanzad en bucle por la zona. Si una cola es larga, saltadla y seguid con la siguiente.</p><ul class="details"><li>Les Voyages de Pinocchio si no se hizo el lunes</li><li>Blancanieves y los 7 enanitos si no se hizo el lunes</li><li>Les Pays des Contes de Fées / Casey Jr. solo pendientes</li><li>Peter Pan’s Flight / Dumbo / It’s a Small World solo las que falten</li></ul></div><div class="card disney"><div class="row-top"><span class="time">10:45–11:25</span><span class="badge disney">Traslado y ubicación</span></div><h4>Ir hacia el recorrido del desfile</h4><p>Elegid un punto que permita salir hacia la siguiente actividad. Llegad con margen; no intentéis añadir una atracción con cola antes del desfile.</p></div><div class="card disney"><div class="row-top"><span class="time">11:30–12:03</span><span class="badge disney">ESPECTÁCULO 7/12</span></div><h4>Disney Stars on Parade</h4><p>Desfile de 33 minutos en Disneyland Park. ☔ Al aire libre: lluvia o viento pueden modificarlo o cancelarlo. Hora proporcionada por vosotros; confirmad el recorrido y el punto de paso en la app.</p></div><div class="card disney"><div class="row-top"><span class="time">12:05–13:00</span><span class="badge disney">Ruta 2 · Discoveryland</span></div><h4>Atracciones recomendadas cercanas</h4><p>Después del desfile, movedos hacia Discoveryland y priorizad una o dos atracciones según esperas. No crucéis el parque para una sola actividad.</p><ul class="details"><li><span class="spot-link" data-spot="buzz">Buzz Lightyear Laser Blast</span> recomendada</li><li>Orbitron si la cola es corta</li><li>Les Mystères du Nautilus experiencia tranquila</li></ul></div><div class="card disney"><div class="row-top"><span class="time">13:00–13:40</span><span class="badge disney">Traslado y margen</span></div><h4>Ir hacia Disneyland Hotel</h4><p>Dejad margen real para la reserva de las 14:00. Si una cola amenaza con retrasaros, abandonadla a tiempo.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=Disneyland+Hotel+Paris" rel="noopener" target="_blank">📍 Royal Banquet</a></div></div><div class="card disney"><div class="row-top"><span class="time">14:00</span><span class="badge disney">Reserva</span></div><h4>Royal Banquet</h4><p>Comida con personajes. Esta experiencia ya os da un encuentro especial con personajes; no hace falta añadir otra cola de personajes salvo que sea una prioridad de las niñas.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=Disneyland+Hotel+Paris" rel="noopener" target="_blank">📍 Royal Banquet</a></div></div><div class="card disney"><div class="row-top"><span class="time">15:45–16:15</span><span class="badge disney">ESPECTÁCULO 8/12</span></div><h4>The Lion King: Rhythms of the Pride Lands</h4><p>Objetivo: pase de las 15:45 para dejar margen después de la comida. Solo funciona si termináis a tiempo y podéis llegar al teatro; si no, probad el pase de las 16:45 y ajustad la tarde.</p></div><div class="card disney"><div class="row-top"><span class="time">16:20–19:15</span><span class="badge disney">Ruta 3 · Discoveryland / pendientes</span></div><h4>Últimas atracciones recomendadas</h4><p>Continuad por las atracciones pendientes y revisad colas virtuales/encuentros disponibles. Evitad repetir por rutina y no prioricéis las montañas rusas.</p><ul class="details"><li>Autopia recomendada</li><li><span class="spot-link" data-spot="buzz">Buzz Lightyear Laser Blast</span> solo si quedó pendiente</li><li>Starport o Meet Mickey solo con cola virtual y si les hace ilusión</li><li>Phantom Manor si quedó pendiente y les apetece</li></ul></div><div class="card disney"><div class="row-top"><span class="time">20:00</span><span class="badge disney">Reserva</span></div><h4>Walt’s — An American Restaurant</h4><p>Cena reservada en Main Street. Al terminar, comprobad la hora de cierre y el estado de las niñas; Tales of Magic ya se habrá intentado el lunes.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=Walts+An+American+Restaurant+Disneyland+Paris" rel="noopener" target="_blank">📍 Walt’s</a></div></div></div></div>
+</div>
+<!-- JUEVES 22 OCT -->
+<div class="day-block disney-day">
+<div class="day-header" onclick="toggleDay(this)">
+<div class="day-header-left">
+<span class="day-number">22</span>
+<div class="day-title-box">
+<h3 class="day-title">🧪 Jueves 22 Oct</h3>
+<p class="day-sub">Adventure World · últimos espectáculos y atracciones, con salida para la cena de las 21:00</p>
+</div>
+</div>
+<span class="toggle-icon">▼</span>
+</div>
+<div class="day-content"><div class="timeline"><div class="card disney"><div class="row-top"><span class="time">Antes de entrar</span><span class="badge disney">Consigna</span></div><h4>Check-out del Newport Bay Club</h4><p>Haced el check-out y dejad las maletas en consigna en Newport Bay Club. Así aprovecháis el día sin cargar con ellas. Confirmad con el hotel el horario y procedimiento para recogerlas después de la cena de las 21:00.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=Disneys+Newport+Bay+Club" rel="noopener" target="_blank">📍 Newport Bay Club</a></div></div><div class="card disney"><div class="row-top"><span class="time">08:00–09:30</span><span class="badge disney">Extra Magic Time</span></div><h4>Atracciones pendientes de Frozen / Adventure Way</h4><p>Aprovechad la mañana para lo que falte, sin repetir Frozen Ever After si ya lo habéis disfrutado y preferís otra recomendada.</p><ul class="details"><li>Raiponce Tangled Spin recomendada</li><li>Les Tapis Volants si la cola es corta</li><li>Frozen Ever After solo si quedó pendiente o fue favorita</li></ul></div><div class="card disney"><div class="row-top"><span class="time">10:00–10:30</span><span class="badge disney">Plan flexible</span></div><h4>Paseo por Adventure Way</h4><p>La Princess Cavalcade se intenta el martes para no dejarla para el último día. Usad este rato para fotos, tiendas y las zonas que más os gusten, sin repetir atracciones por obligación.</p></div><div class="card disney"><div class="row-top"><span class="time">10:35–11:45</span><span class="badge disney">Ruta 1 · Adventure Way</span></div><h4>Atracciones y fotos de la zona</h4><p>Aprovechad el tiempo entre pases para las actividades cercanas y seguid hacia World Premiere Plaza sin volver atrás.</p><ul class="details"><li>Raiponce Tangled Spin si no se hizo</li><li>Fotos en Adventure Way / World of Frozen</li></ul></div><div class="card disney"><div class="row-top"><span class="time">12:00–12:25</span><span class="badge disney">ESPECTÁCULO 10/12</span></div><h4>Minnie’s Dream Factory</h4><p>Función de 25 minutos en World Premiere Plaza. Horario facilitado por vosotros; comprobad el acceso y la hora en la app.</p></div><div class="card disney"><div class="row-top"><span class="time">12:25–13:10</span><span class="badge disney">Pausa y traslado</span></div><h4>Paseo y margen para La Fiesta Latina</h4><p>No meto un show a las 12:30 porque se solaparía con Minnie’s Dream Factory. Usad este hueco para aseos, agua y desplazaros a Adventure Way.</p></div><div class="card disney"><div class="row-top"><span class="time">13:20–13:40</span><span class="badge disney">ESPECTÁCULO 11/12</span></div><h4>La Fiesta Latina de Miguel</h4><p>Función de 20 minutos en Adventure Way. Es el pase que deja más margen antes de la comida de PYM Kitchen.</p></div><div class="card disney"><div class="row-top"><span class="time">13:40–14:20</span><span class="badge disney">Traslado y margen</span></div><h4>Ir hacia PYM Kitchen</h4><p>Dirigíos a Avengers Campus y llegad a la reserva con margen.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=PYM+Kitchen+Disneyland+Paris" rel="noopener" target="_blank">📍 PYM Kitchen</a></div></div><div class="card disney"><div class="row-top"><span class="time">14:30</span><span class="badge disney">Reserva</span></div><h4>PYM Kitchen</h4><p>Comida reservada. Tras comer, empezad a preparar la salida y el cambio de hotel.</p><div class="pins"><a class="pin" href="https://maps.apple.com/?q=PYM+Kitchen+Disneyland+Paris" rel="noopener" target="_blank">📍 PYM Kitchen</a></div></div><div class="card disney"><div class="row-top"><span class="time">15:50–17:00</span><span class="badge disney">Ruta 2 · Avengers Campus</span></div><h4>Últimas atracciones recomendadas</h4><p>Elegid lo pendiente según las esperas; no añadáis una cola larga que ponga en riesgo el último espectáculo o el cambio de hotel.</p><ul class="details"><li>Spider-Man W.E.B. Adventure si quedó pendiente</li><li>Hero Training Center solo si la cola virtual encaja</li><li>Cars Road Trip / Ratatouille solo si quedó pendiente y la ubicación conviene</li></ul></div><div class="card disney"><div class="row-top"><span class="time">17:00–20:15</span><span class="badge disney">Última tarde flexible</span></div><h4>Disfrutar del parque sin prisas</h4><p>Dejad esta franja para atracciones pendientes, fotos con PhotoPass, compras o una pausa. No hace falta abandonar el parque con horas de antelación: la prioridad es llegar tranquilos a la cena.</p></div><div class="card disney"><div class="row-top"><span class="time">21:00</span><span class="badge disney">Reserva fija</span></div><h4>La Table de Lumière</h4><p>Cena reservada en Disneyland Hotel. Disfrutadla sin acortar la experiencia para recuperar las maletas antes.</p></div><div class="card disney"><div class="row-top"><span class="time">Después de la cena · aprox. 22:30</span><span class="badge disney">Equipaje y taxi</span></div><h4>Recoger maletas y taxi al ibis Val d’Europe</h4><p>Volved a Newport Bay Club, recoged el equipaje de consigna y tomad un taxi directamente al ibis Marne-la-Vallée Val d’Europe. Esta opción evita hacer un traslado al hotel antes de cenar. Confirmad previamente que podréis acceder a la consigna a esa hora y avisad al ibis de la llegada tardía.</p></div></div></div>
+</div>
+<!-- VIERNES 23 OCT -->
+<div class="day-block">
+<div class="day-header" onclick="toggleDay(this)">
+<div class="day-header-left">
+<span class="day-number">23</span>
+<div class="day-title-box">
+<h3 class="day-title">Viernes 23 Oct</h3>
+<p class="day-sub">✈️ Barcelona sin prisas · Sagrada Familia por fuera y vuelta al tren con margen</p>
+</div>
+</div>
+<span class="toggle-icon">▼</span>
+</div>
+<div class="day-content">
+<div class="timeline">
+<div class="card flight">
+<div class="row-top"><span class="time">09:45 – 15:15</span><span class="badge flight">Vuelo</span></div>
+<h4>Traslado a CDG T3 &amp; Vuelo IB5231 a BCN</h4>
+<p>Taxi/Uber desde ibis Val d'Europe directo a CDG T3 (~35-45 min, salida a las 09:45 h).</p>
+<p style="margin-top:4px;"><strong>13:35 → 15:15:</strong> Vuelo Vueling IB5231 (París CDG T3 ✈ Barcelona BCN T1).</p>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">15:15 – 16:30</span><span class="badge">Consigna</span></div>
+<h4>Llegada a Barcelona y Consigna en Sants</h4>
+<p>Metro L9 Sud desde T1 a El Prat Estació ➔ Rodalies R2 Sud a Barcelona-Sants (~35 min). Dejar el equipaje en consigna.</p>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Barcelona+Sants+Station" target="_blank">📍 Estación de Sants</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">16:45–18:15</span><span class="badge gold">⭐ Prioridad del día</span></div>
+<h4><span class="spot-link" data-spot="sagrada">Sagrada Familia (exterior)</span></h4>
+<p>La prioridad es verla por fuera y hacer fotos; no necesitáis entrada. Desde Sants, id en metro o taxi según cansancio y equipaje. Reservad aproximadamente 60–90 minutos contando el paseo alrededor de la basílica y una pausa. No intentéis convertir esta escala en una visita completa de Barcelona.</p>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Sagrada+Familia+Barcelona" target="_blank">📍 Sagrada Familia</a>
+</div>
+</div>
+<div class="card">
+<div class="row-top"><span class="time">Opcional · 18:15–18:45</span><span class="badge">Solo si hay energía</span></div>
+<h4>Paseo breve por Passeig de Gràcia</h4>
+<p>Si la peque está bien y os apetece, podéis acercaros a ver las fachadas de Casa Batlló y La Pedrera desde fuera. Si está cansada, saltadlo y volved directamente a Sants; no es una visita imprescindible.</p>
+<div class="pins"><a class="pin" href="https://maps.apple.com/?q=Casa+Batllo+Barcelona" target="_blank">📍 Casa Batlló</a><a class="pin" href="https://maps.apple.com/?q=La+Pedrera+Barcelona" target="_blank">📍 La Pedrera</a></div>
+</div>
+<div class="card train">
+<div class="row-top"><span class="time">20:20 – 23:48</span><span class="badge train">Tren</span></div>
+<h4>Tren OUIGO a Madrid Puerta de Atocha</h4>
+<p>Volved a Sants con margen, recoged las maletas sobre las 19:15–19:30 y dirigíos al tren. No apuréis la visita: el OUIGO 06610 sale a las 20:20 h.</p>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Barcelona+Sants+Station" target="_blank">📍 Barcelona Sants</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- DISNEY -->
+<section class="tabpanel" id="tab-disney">
+<div class="disney-hero">
+<svg class="castle" fill="none" stroke="#F3CB6E" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+<path d="M20 105 L20 60 L10 60 L10 44 L20 44 L20 34 L28 26 L36 34 L36 44 L46 44 L46 60 L40 60 L40 105 Z"></path>
+<path d="M60 105 L60 46 L52 46 L52 30 L62 30 L62 20 L70 12 L78 20 L78 30 L88 30 L88 46 L80 46 L80 105 Z"></path>
+<path d="M120 105 L120 46 L112 46 L112 30 L122 30 L122 20 L130 12 L138 20 L138 30 L148 30 L148 46 L140 46 L140 105 Z"></path>
+<path d="M164 105 L164 60 L154 60 L154 44 L164 44 L164 34 L172 26 L180 34 L180 44 L190 44 L190 60 L184 60 L184 105 Z"></path>
+<path d="M46 105 L46 70 L154 70 L154 105 Z"></path>
+<rect height="25" rx="1" width="12" x="94" y="80"></rect>
+<line x1="8" x2="192" y1="105" y2="105"></line>
+</svg>
+<h2>🍽️ Restaurantes</h2>
+<p>Reservas y comidas previstas de un vistazo</p>
+</div>
+<div class="content" style="padding-top:6px;">
+<div class="timeline">
+<div class="card disney">
+<div class="row-top"><span class="time">19 Oct · 14:30</span><span class="badge disney">Almuerzo</span></div>
+<h4><span class="spot-link" data-spot="agrabah">Agrabah Café</span></h4>
+<p>Parque Disneyland (Adventureland) — buffet.</p>
+</div>
+<div class="card disney">
+<div class="row-top"><span class="time">19 Oct · 20:00</span><span class="badge disney">Cena · sin reserva</span></div>
+<h4>Casa Coco / Cowboy Cookout</h4>
+<p>Comida ligera familiar en el Parque.</p>
+</div>
+<div class="card disney">
+<div class="row-top"><span class="time">20 Oct · 09:45</span><span class="badge disney">Desayuno</span></div>
+<h4><span class="spot-link" data-spot="regalview">The Regal View Restaurant</span></h4>
+<p>Disney Adventure World — desayuno con princesas y personajes.</p>
+</div>
+<div class="card disney">
+<div class="row-top"><span class="time">20 Oct · 14:30</span><span class="badge disney">Almuerzo</span></div>
+<h4><span class="spot-link" data-spot="chezremy">Bistrot Chez Rémy</span></h4>
+<p>Worlds of Pixar — servido en mesa.</p>
+</div>
+<div class="card disney">
+<div class="row-top"><span class="time">20 Oct · 19:30</span><span class="badge disney">Cena · sin reserva</span></div>
+<h4>Stark Factory</h4>
+<p>Avengers Campus — pizzas y pasta.</p>
+</div>
+<div class="card disney">
+<div class="row-top"><span class="time">21 Oct · 14:00</span><span class="badge disney">Almuerzo</span></div>
+<h4><span class="spot-link" data-spot="royalbanquet">Royal Banquet</span></h4>
+<p>Disneyland Hotel — buffet con personajes reales.</p>
+</div>
+<div class="card disney">
+<div class="row-top"><span class="time">21 Oct · 20:00</span><span class="badge disney">Cena</span></div>
+<h4><span class="spot-link" data-spot="walts">Walt's — An American Restaurant</span></h4>
+<p>Main Street, U.S.A. — servido en mesa.</p>
+</div>
+<div class="card disney">
+<div class="row-top"><span class="time">22 Oct · 14:30</span><span class="badge disney">Almuerzo</span></div>
+<h4><span class="spot-link" data-spot="pym">PYM Kitchen</span></h4>
+<p>Avengers Campus — buffet laboratorio.</p>
+</div>
+<div class="card disney">
+<div class="row-top"><span class="time">22 Oct · 21:00</span><span class="badge disney">Cena</span></div>
+<h4><span class="spot-link" data-spot="lumiere">La Table de Lumière</span></h4>
+<p>Disneyland Hotel — cena con parejas reales.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- TRANSPORTES -->
+<section class="tabpanel" id="tab-transportes">
+<div class="content">
+<div class="ticket">
+<div class="ticket-head">
+<div><div class="label">IDA · 16 OCT</div><div class="route">MAD ✈ ORY</div></div>
+<div style="text-align:right; font-size:20px;">🛫</div>
+</div>
+<div class="ticket-body">
+<div class="ticket-row"><span>Vuelo</span><span>Iberia IB583</span></div>
+<div class="ticket-row"><span>Horario</span><span>20:05 → 22:05</span></div>
+<div class="ticket-divider"></div>
+<div class="ticket-row"><span>Reserva</span><span>BES-32303294</span></div>
+<div class="ticket-row"><span>Check-in</span><span>HRL9M</span></div>
+<div class="pins" style="margin-top:6px;">
+<a class="pin" href="https://maps.apple.com/?q=Adolfo+Suarez+Madrid+Barajas+Airport+T4" style="color:var(--flight); background:var(--flight-soft);" target="_blank">📍 MAD T4</a>
+<a class="pin" href="https://maps.apple.com/?q=Paris+Orly+Airport" style="color:var(--flight); background:var(--flight-soft);" target="_blank">📍 Orly T1</a>
+</div>
+</div>
+</div>
+<div class="ticket">
+<div class="ticket-head">
+<div><div class="label">VUELTA · 23 OCT</div><div class="route">CDG ✈ BCN</div></div>
+<div style="text-align:right; font-size:20px;">🛬</div>
+</div>
+<div class="ticket-body">
+<div class="ticket-row"><span>Vuelo</span><span>Vueling IB5231</span></div>
+<div class="ticket-row"><span>Horario</span><span>13:35 → 15:15</span></div>
+<div class="ticket-divider"></div>
+<div class="ticket-row"><span>Reserva</span><span>HJB9L</span></div>
+<div class="ticket-row"><span>Billete</span><span>075-2537891765</span></div>
+<div class="pins" style="margin-top:6px;">
+<a class="pin" href="https://maps.apple.com/?q=Paris+Charles+de+Gaulle+Airport" style="color:var(--flight); background:var(--flight-soft);" target="_blank">📍 CDG T3</a>
+</div>
+</div>
+</div>
+<div class="ticket train">
+<div class="ticket-head">
+<div><div class="label">TREN · 23 OCT</div><div class="route">Sants ✈ Atocha</div></div>
+<div style="text-align:right; font-size:20px;">🚄</div>
+</div>
+<div class="ticket-body">
+<div class="ticket-row"><span>Tren</span><span>OUIGO 06610</span></div>
+<div class="ticket-row"><span>Horario</span><span>20:20 → 23:48 (3h 28m)</span></div>
+<div class="ticket-divider"></div>
+<div class="ticket-row"><span>Billete</span><span>Esencial</span></div>
+<div class="ticket-row"><span>Equipaje</span><span>1× XL</span></div>
+<div class="pins" style="margin-top:6px;">
+<a class="pin" href="https://maps.apple.com/?q=Barcelona+Sants+Station" style="color:var(--train); background:var(--train-soft);" target="_blank">📍 Barcelona Sants</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- HOTELES -->
+<section class="tabpanel" id="tab-hoteles">
+<div class="content">
+<div class="hotel">
+<div class="dates">16 – 19 OCT · 3 NOCHES</div>
+<h4>ibis Paris Issy-les-Moulineaux Val de Seine</h4>
+<p>Base para París centro. Metro L12 cerca.</p>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=ibis+Paris+Issy+les+Moulineaux+Val+de+Seine" target="_blank">📍 Ver ubicación</a>
+</div>
+</div>
+<div class="hotel disney">
+<div class="dates">19 – 22 OCT · 3 NOCHES</div>
+<h4>Disney Newport Bay Club</h4>
+<p>Hotel oficial de Disneyland Paris.</p>
+<div class="pins">
+<a class="pin" href="https://maps.apple.com/?q=Disneys+Newport+Bay+Club" style="color:var(--disney); background:var(--disney-soft);" target="_blank">📍 Ver ubicación</a>
+</div>
+</div>
+<div class="hotel">
+<div class="dates">22 – 23 OCT · 1 NOCHE</div>
+<h4>ibis Marne-la-Vallée Val d’Europe</h4>
+<p>Última noche cerca de Disneyland Paris. Después de La Table de Lumière, recoged las maletas en Newport Bay Club y tomad un taxi al hotel.</p>
+<div class="pins"><a class="pin" href="https://maps.apple.com/?q=ibis+Marne+la+Vallee+Val+d%27Europe" target="_blank">📍 Ver ubicación</a></div>
 </div>
 
-<!-- MODAL COMPONENT -->
-<div id="spotModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" id="closeModalBtn">&times;</span>
-    <img id="modalImg" class="modal-img" src="" alt="Foto monumento">
-    <div class="modal-body">
-      <h3 id="modalTitle">Título del Monumento</h3>
-      <p id="modalDesc">Descripción detallada del monumento.</p>
-    </div>
-  </div>
 </div>
-
+</section><section class="tabpanel" id="tab-checklist"><div class="content checklist-content"><div class="checklist-hero"><h2>🏰 Checklist Disney</h2><p>Marca cada atracción, espectáculo, desfile o encuentro que hayáis disfrutado. ★ indica las recomendaciones de la guía de la agencia. El progreso se guarda en este dispositivo.</p></div><div class="check-progress"><div class="check-progress-top"><strong id="checkProgressText">0 completados</strong><span id="checkProgressPercent">0%</span></div><div class="check-progress-track"><div id="checkProgressBar"></div></div></div><p class="checklist-legend">★ Recomendado por la guía de la agencia. Los horarios de espectáculos y desfiles deben confirmarse en la app.</p><div class="check-group"><h3>Disneyland Park · atracciones</h3><div class="check-items"><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesestaci-n-de-tren" type="checkbox"/><span class="check-item-name">Estación de tren</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesgaler-a-bella-durmiente-castillo" type="checkbox"/><span class="check-item-name">Galería Bella Durmiente (castillo)</span><small class="check-item-tag">experiencia</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionestranv-a-de-caballos" type="checkbox"/><span class="check-item-name">Tranvía de caballos</span><small class="check-item-tag">experiencia</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesguarida-del-drag-n-castillo" type="checkbox"/><span class="check-item-name">Guarida del Dragón (castillo)</span><small class="check-item-tag">puede asustar</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesbig-thunder-mountain" type="checkbox"/><span class="check-item-name">Big Thunder Mountain</span><small class="check-item-tag">intensa</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesroundup-shootin-gallery" type="checkbox"/><span class="check-item-name">Roundup Shootin’ Gallery</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesthunder-mesa-riverboat" type="checkbox"/><span class="check-item-name">Thunder Mesa Riverboat</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesfrontierland-playground" type="checkbox"/><span class="check-item-name">Frontierland Playground</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesmeet-mickey-cola-virtual" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Meet Mickey (cola virtual)</span><small class="check-item-tag">encuentro</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesphantom-manor" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Phantom Manor</span><small class="check-item-tag">puede asustar</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesindiana-jones-et-le-temple-du-p-ril" type="checkbox"/><span class="check-item-name">Indiana Jones et le Temple du Péril</span><small class="check-item-tag">intensa</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesle-passage-enchant-d-aladdin" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Le Passage Enchanté d’Aladdin</span><small class="check-item-tag">experiencia</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionespirates-of-the-caribbean" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Pirates of the Caribbean</span><small class="check-item-tag">moderada / puede asustar</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesla-caba-a-de-robinson" type="checkbox"/><span class="check-item-name">La Cabaña de Robinson</span><small class="check-item-tag">experiencia</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesles-pays-des-contes-de-f-es" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Les Pays des Contes de Fées</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionescasey-jr" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Casey Jr.</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesdumbo-the-flying-elephant" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Dumbo The Flying Elephant</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesmad-hatter-s-teacups" type="checkbox"/><span class="check-item-name">Mad Hatter’s Teacups</span><small class="check-item-tag">moderada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccioneslaberinto-de-alicia" type="checkbox"/><span class="check-item-name">Laberinto de Alicia</span><small class="check-item-tag">experiencia</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesprincess-pavilion-cola-virtual" type="checkbox"/><span class="check-item-name">Princess Pavilion (cola virtual)</span><small class="check-item-tag">encuentro</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionespeter-pan-s-flight" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Peter Pan’s Flight</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesit-s-a-small-world" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>It’s a Small World</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionest-ovivo-lancelot" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Tíovivo Lancelot</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesblancanieves-y-los-7-enanitos" type="checkbox"/><span class="check-item-name">Blancanieves y los 7 enanitos</span><small class="check-item-tag">puede asustar</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesles-voyages-de-pinocchio" type="checkbox"/><span class="check-item-name">Les Voyages de Pinocchio</span><small class="check-item-tag">puede asustar</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesautopia" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Autopia</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesles-myst-res-du-nautilus" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Les Mystères du Nautilus</span><small class="check-item-tag">experiencia</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesstar-wars-hyperspace-mountain" type="checkbox"/><span class="check-item-name">Star Wars Hyperspace Mountain</span><small class="check-item-tag">intensa</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesstar-tours" type="checkbox"/><span class="check-item-name">Star Tours</span><small class="check-item-tag">intensa</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesorbitron" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Orbitron</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesstarport-cola-virtual" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Starport (cola virtual)</span><small class="check-item-tag">encuentro</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="disneyland-park-atraccionesbuzz-lightyear-laser-blast" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Buzz Lightyear Laser Blast</span><small class="check-item-tag">tranquila</small></label></div></div><div class="check-group"><h3>Adventure World · atracciones</h3><div class="check-items"><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesles-tapis-volants" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Les Tapis Volants</span><small class="check-item-tag">moderada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesthe-twilight-zone-tower-of-terror" type="checkbox"/><span class="check-item-name">The Twilight Zone Tower of Terror</span><small class="check-item-tag">intensa</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesspider-man-w-e-b-adventure" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Spider-Man W.E.B. Adventure</span><small class="check-item-tag">moderada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesavengers-assemble-flight-force" type="checkbox"/><span class="check-item-name">Avengers Assemble: Flight Force</span><small class="check-item-tag">intensa</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionescrush-s-coaster" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Crush’s Coaster</span><small class="check-item-tag">intensa · cerrada según la guía</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesrc-racer" type="checkbox"/><span class="check-item-name">RC Racer</span><small class="check-item-tag">intensa</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionescars-rallye-cars-quatre-roues-rallye" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Cars Rallye / Cars Quatre Roues Rallye</span><small class="check-item-tag">moderada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionescars-road-trip" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Cars Road Trip</span><small class="check-item-tag">tranquila</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesslinky-dog-zigzag-spin" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Slinky Dog Zigzag Spin</span><small class="check-item-tag">moderada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionestoy-soldiers-parachute-drop" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Toy Soldiers Parachute Drop</span><small class="check-item-tag">moderada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesratatouille-the-adventure" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Ratatouille: The Adventure</span><small class="check-item-tag">moderada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesfrozen-ever-after" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Frozen Ever After</span><small class="check-item-tag">moderada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesraiponce-tangled-spin" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Raiponce Tangled Spin</span><small class="check-item-tag">moderada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesencuentro-con-elsa-y-anna-cola-virtual" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Encuentro con Elsa y Anna (cola virtual)</span><small class="check-item-tag">encuentro</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccioneshero-training-center-cola-virtual" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Hero Training Center (cola virtual)</span><small class="check-item-tag">encuentro</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="adventure-world-atraccionesanimation-academy" type="checkbox"/><span class="check-item-name">Animation Academy</span><small class="check-item-tag">experiencia</small></label></div></div><div class="check-group"><h3>Disneyland Park · espectáculos, desfiles y encuentros</h3><div class="check-items"><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasstars-on-parade" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Stars on Parade</span><small class="check-item-tag">desfile</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasa-million-splashes-of-colour" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>A Million Splashes of Colour</span><small class="check-item-tag">desfile / show</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciastales-of-magic" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Tales of Magic</span><small class="check-item-tag">espectáculo nocturno</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasmickey-s-halloween-celebration" type="checkbox"/><span class="check-item-name">Mickey’s Halloween Celebration</span><small class="check-item-tag">desfile de temporada</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasthe-lion-king-rhythms-of-the-pride-land" type="checkbox"/><span class="check-item-name">The Lion King: Rhythms of the Pride Land</span><small class="check-item-tag">show</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasmickey-s-philharmagic" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Mickey’s PhilharMagic</span><small class="check-item-tag">show</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasencuentro-con-personajes-de-halloween" type="checkbox"/><span class="check-item-name">Encuentro con personajes de Halloween</span><small class="check-item-tag">encuentro</small></label></div></div><div class="check-group"><h3>Adventure World · espectáculos, desfiles y encuentros</h3><div class="check-items"><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasmickey-and-the-magician" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Mickey and the Magician</span><small class="check-item-tag">show</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasminnie-s-dream-factory" type="checkbox"/><span class="check-item-name">Minnie’s Dream Factory</span><small class="check-item-tag">show</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasstitch-live" type="checkbox"/><span class="check-item-name">Stitch Live!</span><small class="check-item-tag">show</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciastogether-a-pixar-musical-adventure" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Together: A Pixar Musical Adventure</span><small class="check-item-tag">show</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasa-celebration-in-arendelle" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>A Celebration in Arendelle</span><small class="check-item-tag">show</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasmomento-musical-rapunzel-flynn" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Momento musical Rapunzel &amp; Flynn</span><small class="check-item-tag">show</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasprincess-cavalcade" type="checkbox"/><span class="check-item-name">Princess Cavalcade</span><small class="check-item-tag">desfile</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciascascade-of-lights" type="checkbox"/><span class="check-item-name"><span aria-label="Recomendada en la guía de la agencia" class="recommended-star" title="Recomendada en la guía de la agencia">★</span>Cascade of Lights</span><small class="check-item-tag">espectáculo nocturno</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espect-culos-desfiles-y-experienciasencuentro-con-superh-roes-marvel" type="checkbox"/><span class="check-item-name">Encuentro con superhéroes Marvel</span><small class="check-item-tag">encuentro</small></label><label class="check-item"><input class="check-item-input" data-checklist-id="espectaculos-desfiles-y-experiencias-la-fiesta-latina-de-miguel" type="checkbox"/><span class="check-item-name">La Fiesta Latina de Miguel</span><small class="check-item-tag">show</small></label></div></div></div></section><section class="tabpanel" id="tab-info"><div class="content info-content"><div class="info-hero"><h2>✨ Información importante</h2><p>Resumen práctico basado en la guía de la agencia. Los horarios son orientativos: confirmad siempre la app oficial.</p></div><div class="info-card"><h3>⏰ Horarios indicados en la guía</h3><ul><li>Disneyland Park: 09:00–22:00. Stars on Parade: 11:30. Tales of Magic: 22:00 (confirmar en la app). Mickey’s Halloween Celebration: 15:25 / 17:00 (confirmar).</li><li>Adventure World: 09:00–22:00. Cascade of Lights: 21:50 (confirmar). A Celebration in Arendelle: 12:20 / 13:20 / 15:50 / 16:50 / 17:50. La Fiesta Latina de Miguel: 12:30 / 13:20 / 16:05 / 16:55 / 17:45. Princess Cavalcade: 10:00 / 11:25 / 13:50 / 15:10.</li><li>Extra Magic Time indicada: 08:00–09:00. Llegad a la entrada con unos 30 minutos de antelación y dirigíos directamente a vuestra primera atracción.</li></ul></div><div class="info-card"><h3>📱 App y colas virtuales</h3><ul><li>Al menos una persona del grupo debe tener la app oficial instalada y la reserva vinculada. Usad el mapa para comprobar tiempos de espera, horarios, ubicación de personajes, aseos y restaurantes.</li><li>Para una cola virtual, todos los participantes deben haber entrado al parque. Seleccionad a las personas, confirmad y guardad una captura de pantalla del ticket/QR. La guía indica aperturas habituales a las 09:45 y 14:00; Elsa y Anna también a las 08:45. Poned una alarma dos minutos antes y actuad rápido.</li><li>Con el carnet de acceso/cola virtual que os facilite el parque, preguntad en atención al visitante cómo se aplica a cada atracción y espectáculo; no asumáis que sustituye las reservas o las colas virtuales de la app. Sin carnet, usad los horarios de menor espera y la cola virtual oficial cuando esté disponible. Intentad Elsa y Anna, Meet Mickey, Princess Pavilion o Hero Training Center según prioridad y disponibilidad.</li></ul></div><div class="info-card"><h3>🎆 Desfiles y espectáculos nocturnos</h3><ul><li>Para Stars on Parade o Mickey’s Halloween Celebration, la guía recomienda como primera opción el final de Main Street, junto a Central Plaza y Casey’s Corner, con el castillo de fondo. Ambos son al aire libre y pueden modificarse o cancelarse por lluvia o viento; revisad la app antes de esperar mucho tiempo en un punto.</li><li>Para Tales of Magic, buscad una posición frontal en Central Plaza, frente al castillo. Para Cascade of Lights, la guía recomienda la barandilla entrando desde Cars Road Trip. Llegad 40–50 minutos antes para intentar conseguir buen sitio.</li><li>Revisad siempre la app: los horarios pueden variar a diario.</li></ul></div><div class="info-card"><h3>🧥 Qué llevar y lluvia</h3><ul><li>Vestíos por capas. Llevad calzado cómodo ya usado, chaqueta impermeable o chubasquero/poncho, y calcetines de repuesto. En caso de frío, gorro, bufanda y guantes.</li><li>En la mochila: botella reutilizable, snacks (no en vidrio ni tuppers grandes), powerbank, tiritas, pañuelos, gel hidroalcohólico y algo para sentarse durante los desfiles. La guía recomienda valorar un carrito para que las niñas descansen.</li><li>Si llueve, priorizad atracciones cubiertas, espectáculos interiores y tiendas. Los desfiles y espectáculos exteriores (Princess Cavalcade, Disney Stars on Parade, Halloween Celebration y Cascade of Lights) pueden modificarse, retrasarse o cancelarse por lluvia o viento. A Celebration in Arendelle también debe confirmarse en la app el mismo día.</li></ul></div><div class="info-card"><h3>🚶 Cómo evitar colas y aglomeraciones</h3><ul><li>La guía identifica aproximadamente de 11:00 a 15:00 como horas de mayor afluencia; los desfiles, las comidas y el anochecer pueden ser buenos momentos para probar atracciones populares.</li><li>Single Rider solo si no os importa subir separados. Baby Switch permite que un adulto espere con las peques y luego se intercambie con el otro; avisad al Cast Member en la entrada.</li><li>Al terminar el espectáculo nocturno puede haber mucha aglomeración en los buses. La guía recomienda valorar volver andando al hotel si la distancia os encaja.</li></ul></div><div class="info-card"><h3>🍽️ Restaurantes y plan de comidas</h3><ul><li>Reservas indicadas en la guía: Agrabah Café, 19/10 a las 14:30; desayuno con princesas en Regal View, 20/10 a las 09:45; Royal Banquet, 21/10 a las 14:00; PYM Kitchen, 22/10 a las 14:30; La Table de Lumière, 22/10 a las 21:00.</li><li>La guía describe Media Pensión Plus con desayuno por noche de estancia y un cupón de comida o cena por persona y noche, válido según las condiciones del plan. Revisad las condiciones de vuestra reserva y posibles suplementos.</li><li>Si buscáis una reserva de última hora, la guía recomienda preguntar presencialmente en el restaurante, ya que pueden producirse cancelaciones.</li></ul></div><div class="info-card"><h3>🏨 Hotel, PhotoPass y compras</h3><ul><li>Haced el check-in online desde la app antes de llegar. El 22/10, haced check-out del Newport Bay Club y dejad las maletas en consigna si vais a seguir en los parques.</li><li>Para PhotoPass: desde la app, entrad en el servicio Disney PhotoPass e introducid el código de la tarjeta o iniciad sesión para acceder a las fotos.</li><li>La guía indica que el servicio de envío de compras al hotel puede estar disponible gratuitamente para huéspedes de hoteles Disney; confirmadlo en tienda antes de pagar y preguntad por el horario de entrega.</li></ul></div><div class="info-card"><h3>📍 Datos a revisar antes de salir</h3><ul><li>Los horarios, cierres, atracciones disponibles, encuentros con personajes y colas virtuales pueden cambiar. La app oficial es la referencia práctica durante la visita.</li><li>El PDF menciona MagiPark como aplicación no oficial para tiempos de espera y alertas de reapertura.</li><li>Los mapas y listados de la guía señalan Crush’s Coaster como cerrada en el documento; verificad su estado actualizado antes de contar con ella.</li></ul></div></div></section>
+<!-- BOTTOM TAB BAR -->
+<div class="tabbar">
+<button class="tab active" data-tab="itinerario" onclick="showTab('itinerario', this)">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="3" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+    Itinerario
+  </button>
+<button class="tab" data-tab="disney" onclick="showTab('disney', this)">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M3 21V10l4-3 5 4 5-4 4 3v11"></path><path d="M3 21h18"></path><path d="M9 21v-5h6v5"></path></svg>
+    Restaurantes
+  </button>
+<button class="tab" data-tab="transportes" onclick="showTab('transportes', this)">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 16l3-9a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l3 9"></path><path d="M2 16h20v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path><circle cx="7" cy="20" r="1"></circle><circle cx="17" cy="20" r="1"></circle></svg>
+    Transporte
+  </button>
+<button class="tab" data-tab="hoteles" onclick="showTab('hoteles', this)">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M2 12V7a2 2 0 0 1 2-2h6v5"></path><path d="M2 20h20"></path></svg>
+    Hoteles
+  </button>
+<button class="tab" data-tab="checklist" onclick="showTab('checklist', this)"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>Checklist</button><button class="tab" data-tab="info" onclick="showTab('info', this)"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>Info útil</button></div>
+<!-- VENTANA MODAL PARA INFORMACIÓN DE MONUMENTOS -->
+<div class="modal" id="spotModal">
+<div class="modal-content">
+<span class="close-btn" id="closeModalBtn">×</span>
+<img alt="Foto monumento" class="modal-img" id="modalImg" src=""/>
+<div class="modal-body">
+<h3 id="modalTitle"></h3>
+<p id="modalDesc"></p>
+</div>
+</div>
+</div>
 <script>
-  // Spot Data Store completo
   const spotsData = {
     arco: {
       title: "Arco del Triunfo",
-      img: "https://images.unsplash.com/photo-1509439581779-6298f75bf6e5?auto=format&fit=crop&w=800&q=80",
-      desc: "Construido por orden de Napoleón Bonaparte tras su victoria en Austerlitz, este majestuoso monumento rinde homenaje a los caídos en la Revolución y las Guerras Napoleónicas. Situado en el centro de la Plaza Charles de Gaulle, conecta 12 avenidas en forma de estrella."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/GD-FR-Paris-Arc_de_Triomphe.jpg?width=900",
+      desc: "Monumento de la Place Charles-de-Gaulle, encargado por Napoleón en 1806 e inaugurado en 1836. Bajo sus arcos se encuentra la Tumba del Soldado Desconocido."
     },
     elysees: {
       title: "Campos Elíseos",
       img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
-      desc: "Considerada 'la avenida más hermosa del mundo', se extiende casi dos kilómetros desde el Arco del Triunfo hasta la Plaza de la Concordia. Destaca por sus bulevares arbolados, tiendas exclusivas, cines y cafeterías icónicas."
+      desc: "Avenida que une la Place de la Concorde con el Arco del Triunfo; es conocida por sus tiendas, cafés y grandes eventos públicos."
     },
     trocadero: {
       title: "Plaza del Trocadéro",
-      img: "https://images.unsplash.com/photo-1543349689-9a4d426bee8e?auto=format&fit=crop&w=800&q=80",
-      desc: "Ubicada frente a la Torre Eiffel al otro lado del río Sena, la esplanada del Trocadéro ofrece la perspectiva panorámica perfecta y más codiciada para tomar fotografías familiares imborrables."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Eiffel_tower_from_trocadero.jpg?width=900",
+      desc: "Conjunto de jardines y terrazas frente al Sena, en el Palais de Chaillot, desde donde se obtiene una de las vistas clásicas de la Torre Eiffel."
     },
     eiffel: {
       title: "Torre Eiffel",
-      img: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=800&q=80",
-      desc: "Símbolo universal de París, fue construida por Gustave Eiffel para la Exposición Universal de 1889. Con sus 330 metros de altura, domina el horizonte de la ciudad y el parque del Campo de Marte a sus pies."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/View_of_the_Eiffel_Tower_in_Paris,_France.jpg?width=900",
+      desc: "La Torre Eiffel, diseñada por Gustave Eiffel y su equipo, se inauguró en 1889 para la Exposición Universal de París."
     },
     bateaux: {
       title: "Paseo en Barco (Bateaux Parisiens)",
       img: "https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&fit=crop&w=800&q=80",
-      desc: "Un relajante recorrido panorámico por el río Sena. Permite contemplar de forma muy cómoda monumentos principales como la Asamblea Nacional, el Museo d'Orsay, la Conciergerie y los puentes históricos desde el agua."
+      desc: "Un relajante recorrido panorámico por el río Sena contemplando los monumentos de las orillas."
     },
     concorde: {
       title: "Plaza de la Concordia",
-      img: "https://images.unsplash.com/photo-1584003564911-a7a321c84e1c?auto=format&fit=crop&w=800&q=80",
-      desc: "La segunda plaza más grande de Francia, famosa por haber albergado la guillotina durante la Revolución Francesa. En su centro destaca el Obelisco de Luxor, un monolito egipcio de más de 3.000 años de antigüedad con jeroglíficos dorados."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Paris_l'obélisque_de_la_place_de_la_Concorde.jpg?width=900",
+      desc: "Gran plaza histórica entre los Campos Elíseos y el jardín de las Tullerías, reconocible por el obelisco de Luxor y sus fuentes."
     },
     tuileries: {
       title: "Jardines de las Tullerías",
-      img: "https://images.unsplash.com/photo-1590253230532-a5814f10738e?auto=format&fit=crop&w=800&q=80",
-      desc: "El jardín público más antiguo y grande de París, creado en el siglo XVI. Conecta la Plaza de la Concordia con el Louvre y ofrece amplios paseos, fuentes con estanque y áreas perfectas para que los niños descansen."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Jardin_des_Tuileries_in_Paris.jpg?width=900",
+      desc: "Jardín histórico entre el Louvre y la Place de la Concorde, con paseos arbolados, esculturas y estanques."
     },
     louvre: {
       title: "Pirámide del Louvre",
-      img: "https://images.unsplash.com/photo-1565099824688-e93eb20fe622?auto=format&fit=crop&w=800&q=80",
-      desc: "Diseñada por el arquitecto I.M. Pei e inaugurada en 1989, esta pirámide de cristal y metal sirve como entrada principal al Museo del Louvre, creando un llamativo contraste futurista con el antiguo palacio renacentista."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Louvre_Pyramid_from_Cour_Napoléon,_Paris.jpg?width=900",
+      desc: "La pirámide de vidrio diseñada por I. M. Pei se encuentra en el patio Napoleón y sirve como acceso principal al museo del Louvre."
     },
     notredame: {
       title: "Catedral de Notre Dame",
-      img: "https://images.unsplash.com/photo-1478359844494-1092259d93e4?auto=format&fit=crop&w=800&q=80",
-      desc: "Joya de la arquitectura gótica en la Île de la Cité. Famosa por sus torres, gárgolas y rosetones de cristal, así como por la historia del jorobado ideada por Víctor Hugo. Su fachada exterior impresiona por su detalle histórico."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Notre-Dame_de_Paris,_facade.jpg?width=900",
+      desc: "Catedral gótica de la Île de la Cité. La fachada occidental destaca por sus dos torres, el rosetón y las tres grandes portadas."
     },
     flores: {
-      title: "Mercado de Flores (Marché aux Fleurs)",
+      title: "Mercado de Flores",
       img: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80",
-      desc: "Ubicado junto a Notre Dame desde 1808, este entrañable mercado cubierto de hierro forjado alberga puestos llenos de flores coloridas, plantas y adornos de jardín en un entorno vintage encantador."
+      desc: "Mercado de flores y plantas en la Île de la Cité, junto al Sena; el nombre actual honra a la reina Isabel II."
     },
     chapelle: {
       title: "Sainte-Chapelle",
-      img: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=800&q=80",
-      desc: "Obra maestra del arte gótico radiante construida en el siglo XIII por el rey Luis IX para albergar la Corona de Espinas. Desde el exterior destaca por sus agujas y su majestuosa estructura."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Sainte-Chapelle_stained_glass.jpg?width=900",
+      desc: "Capilla gótica del siglo XIII, construida para albergar reliquias de la Pasión. Su capilla superior es célebre por sus grandes vidrieras."
     },
     pantheon: {
       title: "Panteón de París",
-      img: "https://images.unsplash.com/photo-1588691891500-11756a599607?auto=format&fit=crop&w=800&q=80",
-      desc: "Ubicado en la cima del Barrio Latino, este imponente edificio neoclásico con cúpula alberga las tumbas de grandes personalidades de la historia francesa como Marie Curie, Víctor Hugo, Voltaire y Rousseau."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Panthéon_de_Paris_façade.jpg?width=900",
+      desc: "Monumento neoclásico del Barrio Latino que alberga las tumbas de numerosas figuras destacadas de la historia francesa."
     },
     luxembourg: {
       title: "Jardines de Luxemburgo",
-      img: "https://images.unsplash.com/photo-1581881067989-7e3eaf45f390?auto=format&fit=crop&w=800&q=80",
-      desc: "El parque favorito de las familias parisinas. Construido para María de Médici, alberga un estanque central donde los niños alquilan barquitos de madera con velas de colores, parques infantiles y teatros de marionetas."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Jardin_du_Luxembourg_Paris_Aug_2026_06.jpg?width=900",
+      desc: "Jardines del palacio de Luxemburgo, con estanque central, sillas, zonas de juego y amplios caminos para descansar."
     },
     opera: {
       title: "Ópera Garnier",
-      img: "https://images.unsplash.com/photo-1549693578-d683be217e58?auto=format&fit=crop&w=800&q=80",
-      desc: "Espectacular teatro neobarroco inaugurado en 1875, conocido mundialmente por inspirar la obra 'El Fantasma de la Ópera'. Su fachada exterior está adornada con esculturas de oro, columnas ornamentadas y frisos de mármol."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Palais_garnier_facade1.jpg?width=900",
+      desc: "Ópera histórica de París diseñada por Charles Garnier e inaugurada en 1875; destaca por su fachada monumental y su decoración Beaux-Arts."
     },
     lafayette: {
-      title: "Galeries Lafayette Haussmann",
-      img: "https://images.unsplash.com/photo-1584003564911-a7a321c84e1c?auto=format&fit=crop&w=800&q=80",
-      desc: "Grandes almacenes icónicos célebres por su cúpula de cristal art nouveau de 1912. En su última planta cuentan con una gran terraza Rooftop de acceso totalmente gratuito con una vista panorámica espectacular sobre toda París."
+      title: "Galeries Lafayette",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Galeries_Lafayette_Paris_Dome.jpg?width=900",
+      desc: "Grandes almacenes del boulevard Haussmann; su cúpula de vidrio y hierro de estilo Art Nouveau es uno de sus elementos más conocidos."
     },
     sacrecoeur: {
       title: "Basílica del Sacré-Cœur",
-      img: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=800&q=80",
-      desc: "Ubicada en la cima de la colina de Montmartre, esta basílica de piedra travertina blanca domina la ciudad. Sus escalinatas ofrecen una de las panorámicas más abiertas de París."
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Sacre_Coeur_Exterior.JPG?width=900",
+      desc: "Basílica blanca situada en la colina de Montmartre, con una amplia vista de París desde sus escalinatas."
     },
     funicular: {
       title: "Funicular de Montmartre",
       img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
-      desc: "Un breve trayecto inclinado por cable que ahorra subir los 222 escalones de la colina hasta el Sagrado Corazón, convirtiéndose en un trayecto divertido y muy cómodo para viajar con niños."
+      desc: "Funicular que conecta la parte baja de Montmartre con la zona de la basílica del Sacré-Cœur."
     },
     tertre: {
-      title: "Place du Tertre (Plaza de los Pintores)",
+      title: "Place du Tertre",
       img: "https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?auto=format&fit=crop&w=800&q=80",
-      desc: "Corazón bohemio del barrio de Montmartre. Decenas de pintores y retratistas colocan sus caballetes al aire libre a diario, recordando la época en que Picasso, Van Gogh y Monet frecuentaban estas calles."
+      desc: "Pequeña plaza de Montmartre conocida por sus artistas, retratistas y terrazas."
     },
     moulin: {
       title: "Moulin Rouge",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Moulin_Rouge_Paris.jpg?width=900",
+      desc: "Cabaret del boulevard de Clichy, reconocible por el molino rojo de su fachada, en el barrio de Pigalle."
+    },
+    agrabah: {
+      title: "Agrabah Café",
+      img: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=800&q=80",
+      desc: "Buffet temático ambientado en los pasadizos de Aladdin."
+    },
+    piratas: {
+      title: "Pirates of the Caribbean",
+      img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80",
+      desc: "Aventura clásica en barca navegando por fortalezas piratas."
+    },
+    peterpan: {
+      title: "Peter Pan's Flight",
+      img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
+      desc: "Vuelo mágico sobre Londres en busca del País de Nunca Jamás."
+    },
+    smallworld: {
+      title: "it's a small world",
+      img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80",
+      desc: "El entrañable paseo en barca por los cinco continentes."
+    },
+    laberinto: {
+      title: "Alice's Curious Labyrinth",
+      img: "https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80",
+      desc: "Divertido laberinto de setos con el castillo de la Reina de Corazones."
+    },
+    regalview: {
+      title: "The Regal View Restaurant",
+      img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      desc: "Desayuno exclusivo compartiendo momentos con las Princesas Disney."
+    },
+    slinky: {
+      title: "Slinky Dog Zigzag Spin",
+      img: "https://images.unsplash.com/photo-1561149831-1d044621f8a8?auto=format&fit=crop&w=800&q=80",
+      desc: "Paseo en muelle gigante con el perro Slinky de Toy Story."
+    },
+    cars: {
+      title: "Cars ROAD TRIP",
       img: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80",
-      desc: "El cabaret más famoso del mundo, fundado en 1889 en el distrito de Pigalle. Su característico molino de viento rojo en el techo es una parada clásica para hacerse una foto en el bulevar."
+      desc: "Recorrido estilo Ruta 66 con escenas de Cars."
+    },
+    spider: {
+      title: "WEB SLINGERS: A Spider-Man Adventure",
+      img: "https://images.unsplash.com/photo-1635863138275-d9b33299680b?auto=format&fit=crop&w=800&q=80",
+      desc: "Atracción interactiva lanzando telarañas con Spider-Man."
+    },
+    chezremy: {
+      title: "Bistrot Chez Rémy",
+      img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80",
+      desc: "Restaurante con platos y cubiertos gigantes como si fueras del tamaño de un ratón."
+    },
+    ratatouille: {
+      title: "Ratatouille: L'Aventure Totalement Toquée",
+      img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+      desc: "Viaje en 4D huyendo por las cocinas de Gusteau."
+    },
+    buzz: {
+      title: "Buzz Lightyear Laser Blast",
+      img: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80",
+      desc: "Dispara con pistolas láser para acumular puntos derrotando a Zurg."
+    },
+    autopia: {
+      title: "Autopia",
+      img: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80",
+      desc: "Pista de conducción para pilotar coches clásicos."
+    },
+    teacups: {
+      title: "Mad Hatter's Tea Cups",
+      img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80",
+      desc: "Girantes tazas de té en Fantasyland."
+    },
+    royalbanquet: {
+      title: "Royal Banquet",
+      img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+      desc: "Banquete real dentro del Disneyland Hotel con Personajes Reales."
+    },
+    walts: {
+      title: "Walt's - an American Restaurant",
+      img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80",
+      desc: "Restaurante elegante en Main Street con decoración victoriana."
+    },
+    bigthunder: {
+      title: "Big Thunder Mountain",
+      img: "https://images.unsplash.com/photo-1513883049090-d0b7439799bf?auto=format&fit=crop&w=800&q=80",
+      desc: "Emocionante tren minero por una montaña del Lejano Oeste."
+    },
+    pym: {
+      title: "PYM Kitchen",
+      img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+      desc: "Buffet con comida encogida y agrandada con partículas PYM."
+    },
+    lumiere: {
+      title: "La Table de Lumière",
+      img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      desc: "Cena de alta cocina inspirada en la Bella y la Bestia en el Disneyland Hotel."
+    },
+    sagrada: {
+      title: "Sagrada Familia",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Família_exterior_Barcelona_2026.jpg?width=900",
+      desc: "Basílica diseñada por Antoni Gaudí, aún en construcción. La visita prevista es solo exterior: podéis rodear la basílica y contemplar sus fachadas sin comprar entrada."
+    },
+    batllo: {
+      title: "Casa Batlló",
+      img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80",
+      desc: "Edificio modernista de Antoni Gaudí en Passeig de Gràcia, conocido por su fachada colorida y sus formas inspiradas en la naturaleza."
+    },
+    mila: {
+      title: "La Pedrera (Casa Milà)",
+      img: "https://commons.wikimedia.org/wiki/Special:FilePath/La_Pedrera_Barcelona_May_2026-4a.jpg?width=900",
+      desc: "Casa Milà, conocida como La Pedrera, es un edificio modernista de Antoni Gaudí en Passeig de Gràcia, famoso por su fachada ondulante y sus chimeneas escultóricas."
     }
   };
 
-  // Cambio de pestañas con escucha táctil directa para iOS
-  function selectTab(tabId) {
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
+  function toggleDay(header) {
+    const dayBlock = header.parentElement;
+    dayBlock.classList.toggle('collapsed');
+  }
 
-    tabContents.forEach(content => content.classList.remove('active'));
-    tabBtns.forEach(btn => btn.classList.remove('active'));
+  function showTab(id, btn){
+    document.querySelectorAll('.tabpanel').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({top:0, behavior:'instant'});
+  }
 
-    const targetContent = document.getElementById(tabId);
-    if (targetContent) {
-      targetContent.classList.add('active');
-    }
-
-    const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
-    if (activeBtn) {
-      activeBtn.classList.add('active');
+  function updateCountdown(){
+    const tripStart = new Date('2026-10-16T00:00:00');
+    const tripEnd = new Date('2026-10-23T23:59:59');
+    const now = new Date();
+    const el = document.getElementById('countdown');
+    const oneDay = 1000*60*60*24;
+    if (now < tripStart){
+      const days = Math.ceil((tripStart - now) / oneDay);
+      el.textContent = 'Faltan ' + days + ' días';
+    } else if (now <= tripEnd){
+      el.textContent = '¡Estáis de viaje! ✈️';
+    } else {
+      el.textContent = 'Viaje completado';
     }
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    const tabBtns = document.querySelectorAll('.tab-btn');
+    updateCountdown();
+    initDisneyChecklist();
 
-    tabBtns.forEach(btn => {
-      const handler = function(e) {
-        e.preventDefault();
-        const tabId = this.getAttribute('data-tab');
-        selectTab(tabId);
-      };
-
-      btn.addEventListener('touchstart', handler, { passive: false });
-      btn.addEventListener('click', handler);
-    });
-
-    // Enlaces a los monumentos para abrir el modal
-    const spotLinks = document.querySelectorAll('.spot-link');
     const modal = document.getElementById('spotModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalDesc = document.getElementById('modalDesc');
     const modalImg = document.getElementById('modalImg');
     const closeModalBtn = document.getElementById('closeModalBtn');
 
-    spotLinks.forEach(link => {
-      const openModal = function(e) {
+    document.addEventListener('click', function(e) {
+      const spotLink = e.target.closest('.spot-link');
+      if (spotLink) {
         e.preventDefault();
-        const key = this.getAttribute('data-spot');
+        const key = spotLink.getAttribute('data-spot');
         const data = spotsData[key];
         if (data) {
-          modalTitle.innerText = data.title;
-          modalDesc.innerText = data.desc;
+          modalTitle.textContent = data.title;
+          modalDesc.textContent = data.desc;
           modalImg.src = data.img;
           modal.style.display = 'flex';
         }
-      };
-
-      link.addEventListener('touchstart', openModal, { passive: false });
-      link.addEventListener('click', openModal);
+      }
     });
 
     closeModalBtn.addEventListener('click', function() {
@@ -742,7 +1166,31 @@
       }
     });
   });
-</script>
 
+  function updateChecklistProgress(){
+    const boxes = Array.from(document.querySelectorAll('.check-item-input'));
+    const done = boxes.filter(box => box.checked).length;
+    const total = boxes.length;
+    const pct = total ? Math.round(done / total * 100) : 0;
+    const textEl = document.getElementById('checkProgressText');
+    const pctEl = document.getElementById('checkProgressPercent');
+    const bar = document.getElementById('checkProgressBar');
+    if(textEl) textEl.textContent = done + ' de ' + total + ' completados';
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(bar) bar.style.width = pct + '%';
+  }
+  function initDisneyChecklist(){
+    const boxes = document.querySelectorAll('.check-item-input');
+    boxes.forEach(box => {
+      const key = 'disneyChecklist2026_' + box.dataset.checklistId;
+      try { box.checked = localStorage.getItem(key) === '1'; } catch(e) {}
+      box.addEventListener('change', () => {
+        try { localStorage.setItem(key, box.checked ? '1' : '0'); } catch(e) {}
+        updateChecklistProgress();
+      });
+    });
+    updateChecklistProgress();
+  }
+</script>
 </body>
 </html>
